@@ -3,7 +3,7 @@ This is a java project build with maven to generate the skeleton of
 a new Android app with [AndroidX](https://developer.android.com/jetpack/androidx/) in [Kotlin](https://kotlinlang.org/)
 with [AndroidArchitectureComponent](https://developer.android.com/topic/libraries/architecture/).
 
-##GeneratedStructure:
+## GeneratedStructure:
 1. Version of dependencies, download repository and other build.gradle properties are resolved from versions.gradle
 2. Static resources such as layout directory, menu directory, drawables and others.
 3. Android Manifest File with entry of activities, permission tag. 
@@ -20,7 +20,7 @@ The generated manifest file does not specify default launcher activity.
                          and repository ( and its impl)         
 
 
-##How to Use :
+## How to Use :
 1. Download the [AndroidSkeletonHelper.zip]() and extract to some directory.
 2. Go to extracted directory, you will find `AndroidSkeletonHelper.jar` and `properties` 
 directory.
@@ -39,7 +39,7 @@ directory.
       Enjoy coding. :)
         
         
-##Issues
+## Issues
 Feel free to report any issues, change request [Here](https://github.com/aashish-aadarsh/AndroidSkeletonHelper/issues)
 
 #
