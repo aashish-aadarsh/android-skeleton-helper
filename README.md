@@ -20,7 +20,7 @@ The generated manifest file does not specify default launcher activity.
                          and repository ( and its impl)         
 
 
-##How to Use :
+#How to Use :
 
 1. Download the [AndroidSkeletonHelper.zip]() and extract to some directory.
 2. Go to extracted directory, you will find `AndroidSkeletonHelper.jar` and `properties` 
@@ -37,7 +37,8 @@ directory.
  5. Wait till application finishes its execution.
  6. Import the skeleton in Android studio enjoy coding. :)   
 
-##Issues
+
+#Issues
 Feel free to report any issues, change request [Here](https://github.com/aashish-aadarsh/AndroidSkeletonHelper/issues)
 
 #
