@@ -1,0 +1,7 @@
+package ${applicationId}.vo
+
+enum class Status {
+    SUCCESS,
+    ERROR,
+    LOADING
+}

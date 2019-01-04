@@ -1,0 +1,45 @@
+package ${applicationId}.utility
+
+import com.google.gson.*
+import java.text.DateFormat
+import java.util.*
+import android.content.Context
+import android.provider.Settings
+import android.util.Log
+
+
+object AppUtils {
+
+    val gsonObject: Gson
+        get() {
+
+            val ser = JsonSerializer<Date> { src, _, _ -> if (src == null) null else JsonPrimitive(src.time) }
+
+            val deser = JsonDeserializer<Date> { json, _, _ -> if (json == null) null else Date(json.asLong) }
+
+            return GsonBuilder()
+                    .setDateFormat(DateFormat.FULL, DateFormat.FULL)
+                    .registerTypeAdapter(Date::class.java, ser)
+                    .registerTypeAdapter(Date::class.java, deser).create()
+        }
+
+        fun checkDateTimeSetting(context: Context): Boolean {
+                val autoTimeResult: Int
+                val autoTimeZoneResult: Int
+                var status = false
+                try {
+                    autoTimeResult = Settings.Global.getInt(context
+                            .contentResolver, Settings.Global.AUTO_TIME)
+
+                    autoTimeZoneResult = Settings.Global.getInt(context
+                            .contentResolver, Settings.Global.AUTO_TIME_ZONE)
+
+                    status = autoTimeResult == 1 && autoTimeZoneResult == 1
+                } catch (ex: Settings.SettingNotFoundException) {
+                    Log.e(AppUtils::class.java.simpleName, "Error while checkDateTimeSetting...", ex)
+                }
+
+                return status
+            }
+
+}

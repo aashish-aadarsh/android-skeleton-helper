@@ -1,0 +1,17 @@
+package ${applicationId}.datasource.database.dao
+
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Delete
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import ${applicationId}.datasource.database.entity.${jsonEntity.className}
+
+
+@Dao
+interface ${jsonEntity.className}Dao : BaseDao<${jsonEntity.className}> {
+
+    @Query("SELECT * FROM ${jsonEntity.tableName}")
+    fun fetchAll(): LiveData<List<${jsonEntity.className}>>
+}

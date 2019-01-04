@@ -1,0 +1,8 @@
+package ${applicationId}.vo
+
+class AppConstants {
+
+    companion object {
+        const val BASE_URL = ""
+    }
+}

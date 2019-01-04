@@ -1,0 +1,48 @@
+package ${applicationId}.view.${component}
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import ${applicationId}.R
+import ${applicationId}.databinding.${BindingClassName}
+import ${applicationId}.vo.Status
+
+class ${ClassName} : AppCompatActivity() {
+
+    private lateinit var viewModel: ${ViewModelName}
+    private lateinit var mBinding: ${BindingClassName}
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.${LayoutFileName})
+        initVariables()
+        initListener()
+        observeData()
+    }
+
+
+    private fun initVariables() {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.${LayoutFileName})
+        viewModel = ViewModelProviders.of(this).get(${ViewModelName}::class.java)
+        viewModel.initFragmentManager(supportFragmentManager)
+    }
+
+    private fun initListener() {
+        viewModel.initFragmentManager(supportFragmentManager)
+        viewModel.initLiveData()
+    }
+
+    private fun observeData() {
+
+        viewModel.doOperation().observe(this, Observer { value ->
+            if (null != value && value.status == Status.SUCCESS) {
+
+            }
+        })
+
+    }
+
+
+}

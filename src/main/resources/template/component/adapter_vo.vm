@@ -1,0 +1,5 @@
+package ${applicationId}.view.${component}
+
+class ${ClassName}{
+
+}

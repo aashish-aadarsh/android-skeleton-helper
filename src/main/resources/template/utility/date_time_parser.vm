@@ -1,0 +1,87 @@
+package ${applicationId}.utility
+
+import android.util.Log
+
+import java.text.DateFormat
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
+
+object DateTimeParser {
+
+    var dd_mm_yyyy = "dd-MM-yyyy"
+    var yyyy_mm_dd = "yyyy-MM-dd"
+    var dd_mm_yyyy_hh_mm_ss = "dd-MM-yyyy HH:mm:ss"
+    var yyyy_mm_dd_hh_mm_ss = "yyyy-MM-dd HH:mm:ss"
+
+    /*The pattern is like 2014 Dec 28 13:33:56*/
+    var yyyy_MMM_dd_hh_mm_ss = "yyyy MMM dd HH:mm:ss"
+
+
+    /*The method accepts valid date time in long and valid date time format. The datetime format
+            can be taken reference from DateTimeFormatConstant class..
+            The user can specify their own format, pertaining to restriction
+                that it is valid date time format...
+
+       @Params     dateTimeLong - Date time in long
+       @Params   dateFormat - Valid parsable date time format string
+      */
+
+    fun longToDateTimeString(dateTimeLong: Long, dateFormat: String): String {
+        val parsedDateString: String
+        val parsedDate = Date(dateTimeLong)
+        parsedDateString = getDateFormat(dateFormat).format(parsedDate)
+        return parsedDateString
+    }
+
+    /*The method accepts valid date time in long and valid date time format. The datetime format
+              can be taken reference from DateTimeFormatConstant class..
+              The user can specify their own format, pertaining to restriction
+                  that it is valid date time format...
+        @Params     date - Date (java.util)
+       @Params   dateFormat - Valid parsable date time format string
+
+ */
+    fun dateToDateTimeString(date: Date, dateFormat: String): String {
+        return getDateFormat(dateFormat).format(date)
+    }
+
+    /*The method to parse valid String to date*/
+    @Throws(ParseException::class)
+    fun stringToDateTime(dateString: String): Date {
+        val date: Date
+        val dateFormat = getDateFormat(dateString)
+        dateFormat.timeZone = TimeZone.getDefault()
+        dateFormat.isLenient = false
+        try {
+            date = dateFormat.parse(dateString)
+        } catch (parseException: ParseException) {
+            Log.e("DateTimeParser", "Exception while parsing $dateString  to DateTime !!", parseException)
+            throw ParseException("Invalid Input String for date time...$dateString", 1)
+        }
+
+        return date
+    }
+
+    /*The method to represent hours and minutes to two digit representation..*/
+    fun getTimeString(minute: Int, hour: Int): String {
+        val time = StringBuilder()
+        if (hour < 10) {
+            time.append("0")
+        }
+        time.append(hour)
+        time.append(":")
+        if (minute < 10) {
+            time.append("0")
+        }
+        time.append(minute)
+        time.append(":00")
+        return time.toString()
+    }
+
+    private fun getDateFormat(format: String): DateFormat {
+        return SimpleDateFormat(format, Locale.getDefault())
+    }
+}

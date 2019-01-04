@@ -1,0 +1,40 @@
+package ${applicationId}.datasource.network.retrofit
+
+import android.util.Log
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import java.util.concurrent.TimeUnit
+import ${applicationId}.BuildConfig
+
+
+object OkHttpClientInterceptor {
+
+    val instance: OkHttpClient
+        get() {
+            val logging = HttpLoggingInterceptor()
+            logging.level = if (BuildConfig.DEBUG)
+                HttpLoggingInterceptor.Level.BODY
+            else
+                HttpLoggingInterceptor.Level.NONE
+
+            val builder = OkHttpClient.Builder()
+            val connectionTimeOut: Long = 30000
+            builder.connectTimeout(connectionTimeOut, TimeUnit.MILLISECONDS)
+            builder.readTimeout(connectionTimeOut, TimeUnit.MILLISECONDS)
+            builder.addInterceptor { chain ->
+                val request = chain.request()
+                var response = chain.proceed(request)
+                var tryCount = 0
+                while (!response.isSuccessful && tryCount < 2) {
+                    Log.d("intercept", "Request is not successful - $tryCount")
+                    tryCount++
+                    response = chain.proceed(request)
+                }
+
+                response
+            }
+            builder.interceptors().add(logging)
+            return builder.build()
+        }
+
+}

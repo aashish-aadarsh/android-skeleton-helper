@@ -1,0 +1,94 @@
+package ${applicationId}.utility
+
+import android.util.Log
+import android.util.Patterns
+import android.widget.EditText
+import java.util.regex.Pattern
+
+object AppValidator {
+
+
+    private val TAG = "AppETValidator"
+
+    fun isEmptyOrWhiteSpaces(editText: EditText): Boolean {
+        return editText.text.toString().trim { it <= ' ' }.equals("", ignoreCase = true) || editText.text
+                .toString().isEmpty()
+    }
+
+    fun isHavingOnlyAlphabetCharacter(editText: EditText): Boolean {
+        val regExp = "[A-z\u00C0-\u00ff \\./-]*"
+        return AppValidator.validateRegExp(regExp, editText)
+    }
+
+    fun isHavingAlphaNumeric(editText: EditText): Boolean {
+        val regExp = "[a-zA-Z0-9 \\./-]*"
+        return AppValidator.validateRegExp(regExp, editText)
+    }
+
+    fun isValidNameWithHyphen(editText: EditText): Boolean {
+        val regExp = "[\\p{L}- ]+"
+        return AppValidator.validateRegExp(regExp, editText)
+    }
+
+    fun isValidNumerals(editText: EditText): Boolean {
+        val regExp = " ^[1-9]\\d*$"
+        return AppValidator.validateRegExp(regExp, editText)
+    }
+
+    fun isValidEmail(editText: EditText): Boolean {
+        val stringForValidation = editText.text.toString().trim { it <= ' ' }
+        return Patterns.EMAIL_ADDRESS.matcher(stringForValidation).matches()
+    }
+
+    /*The method returns true when the params Edit text character length is of 10 character ,
+    does not contains any empty space and all characters are not ZERO*/
+    fun hasValidMobileNo(editText: EditText): Boolean {
+        val chars = editText.text.toString()
+        var flag = false
+        if (!isEmptyOrWhiteSpaces(editText) && chars.length == 10 && isValidNumerals(editText)
+                && !checkIfAllCharacterAreZERO(chars)) {
+            flag = true
+        }
+        return flag
+    }
+
+    /*The method returns true when the params Edit text character length is of 6 character ,
+     does not contains any empty space and all characters are not ZERO*/
+    fun isValidPin(editText: EditText): Boolean {
+        val chars = editText.text.toString()
+        var flag = false
+        if (chars.length == 6 && !chars.startsWith("0") && isValidNumerals(editText) &&
+                !checkIfAllCharacterAreZERO(chars)) {
+            flag = true
+        }
+        return flag
+    }
+
+
+    fun isValidLandLine(editText: EditText): Boolean {
+        val chars = editText.text.toString()
+        var flag = false
+        if (chars.length in 6..14 && isValidNumerals(editText) &&
+                !checkIfAllCharacterAreZERO(chars)) {
+            flag = true
+        }
+        return flag
+    }
+
+    /*This method validates edit text with provided Reg-Exp*/
+    fun validateRegExp(regExp: String, editText: EditText): Boolean {
+        val stringForValidation = editText.text.toString().trim { it <= ' ' }
+        return Pattern.compile(regExp).matcher(stringForValidation).matches()
+    }
+
+    private fun checkIfAllCharacterAreZERO(chars: String): Boolean {
+        var parsedLong: Long? = 0L
+        try {
+            parsedLong = java.lang.Long.parseLong(chars)
+        } catch (ex: Exception) {
+            Log.e(TAG, "--Exception Occurred while parsing string to number in checkIfAllCharacterAreZERO", ex)
+        }
+
+        return parsedLong == 0L
+    }
+}

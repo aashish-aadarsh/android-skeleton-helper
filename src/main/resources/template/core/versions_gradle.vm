@@ -1,0 +1,62 @@
+/**
+ *  Author : ${author}
+ **/
+
+
+/* Application Default Config*/
+
+ext {
+    build_compileSdkVersion = ${build_compileSdkVersion}
+    build_applicationId = "${applicationId}"
+    build_minSdkVersion = ${build_minSdkVersion}
+    build_targetSdkVersion = ${build_targetSdkVersion}
+    build_versionCode = ${build_versionCode}
+    build_versionName = ${build_versionName}
+    build_databinding_enable = ${build_databinding_enable}
+    build_abortOnError_enable = ${build_abortOnError_enable}
+}
+
+/* Root Project Version*/
+
+ext {
+    root_kotlin_version = ${root_kotlin_version}
+    root_build_gradle_version = ${root_build_gradle_version}
+}
+
+/* ApplicationDependency*/
+
+ext {
+    app_appcompatx = ${app_appcompatx}
+    app_cardviewx =  ${app_cardviewx}
+    app_materialx =  ${app_cardviewx}
+    androidx_legacy_support_v4 = ${androidx_legacy_support_v4}
+
+    app_multidex = ${app_multidex}
+
+    app_xlifecycleArcht = ${app_xlifecycleArcht}
+    app_dataBindingCompiler = ${app_dataBindingCompiler}
+
+    retrofit_version = ${retrofit_version}
+    gson_convertor_version = ${gson_convertor_version}
+    retrofitinterceptor = ${retrofitinterceptor}
+
+    junit = ${junit}
+    runner = ${runner}
+    espresso = ${espresso}
+
+}
+
+/* RepositoryURL */
+
+static def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.jcenter()
+    handler.mavenCentral()
+    handler.mavenLocal()
+
+    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    handler.jcenter { url "https://jcenter.bintray.com" }
+    handler.maven { url "https://jitpack.io" }
+}
+
+ext.addRepos = this.&addRepos

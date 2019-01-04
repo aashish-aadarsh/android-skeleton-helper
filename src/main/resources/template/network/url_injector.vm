@@ -1,0 +1,6 @@
+package ${applicationId}.datasource.network
+
+object URLInjector {
+
+    const val API_OPERATION_X = "sample/v1"
+}

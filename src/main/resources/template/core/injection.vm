@@ -1,0 +1,32 @@
+package ${applicationId}.core
+
+import android.content.Context
+import java.util.concurrent.TimeUnit
+import ${applicationId}.datasource.network.RateLimiter
+import ${applicationId}.datasource.network.retrofit.APIInterface
+import ${applicationId}.datasource.network.retrofit.RetrofitAPIClient
+import ${applicationId}.datasource.database.AppDatabase
+
+
+object Injection {
+
+    fun provideAppExecutors(): AppExecutors {
+        return AppExecutors.instance
+    }
+
+    fun provideDatabase(): AppDatabase {
+        return AppDatabase.getInstance()
+    }
+
+    fun provideContext(): Context? {
+        return AppHolder.context
+    }
+
+    fun provideRateLimiter(): RateLimiter<String> {
+        return RateLimiter(1, TimeUnit.MINUTES)
+    }
+
+    fun provideRetrofitInterface(context: Context): APIInterface? {
+        return RetrofitAPIClient.getClient(context)?.create(APIInterface::class.java)
+    }
+}

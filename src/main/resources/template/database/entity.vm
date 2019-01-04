@@ -1,0 +1,112 @@
+package ${applicationId}.datasource.database.entity
+
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.Ignore
+import com.google.gson.annotations.SerializedName
+
+@Entity(tableName = "${jsonEntity.tableName}")
+data class ${jsonEntity.className}(
+#generateAttributesOfTheClass(${jsonEntity})
+#generateEmbededObjects(${jsonEntity.nestedObjectAttributes})
+)  {
+## Generate embeded classes
+#foreach(${jsonEntity} in ${jsonEntity.nestedObjectAttributes})
+#generateEmbededClass($jsonEntity)
+#end
+
+#foreach($jsonEntity in ${jsonEntity.nestedListAttributes})
+#generateListObjectClass($jsonEntity)
+#end
+
+}
+################################################################################
+####################### MACRO : generate attributes ############################
+
+#macro(generateAttributesOfTheClass $jsonEntity)
+#if(${jsonEntity.primitiveAttributes.size()} > 0)
+
+#foreach($attr in ${jsonEntity.primitiveAttributes})
+@SerializedName("${attr.attributeName}") var ${attr.attributeName}: ${attr.dataType}? = null#if($foreach.hasNext),
+#end
+#end
+#if(${jsonEntity.nestedObjectAttributes.size()} > 0),#end
+#end
+#end
+################################################################################
+
+
+################################################################################
+####################### MACRO : generate Embeded objects #######################
+
+#macro(generateEmbededObjects $nestedObjectAttributes)
+#if(${nestedObjectAttributes})
+#foreach($nestedObject in ${nestedObjectAttributes})
+@Embedded(prefix = "${nestedObject.prefix}")
+@SerializedName("${nestedObject.entityName}") var ${nestedObject.entityName}: ${nestedObject.className}? = null#if($foreach.hasNext),#end
+
+#end
+#end
+#end
+################################################################################
+
+
+################################################################################
+####################### MACRO : generate Embeded classes #######################
+
+#macro(generateEmbededClass $jsonEntity)
+#if(${jsonEntity})
+
+data class ${jsonEntity.className}(
+#generateAttributesOfTheClass(${jsonEntity})
+
+#generateEmbededObjects(${jsonEntity.nestedObjectAttributes})
+
+)#if(${jsonEntity.nestedObjectAttributes.size()} > 0 || ${jsonEntity.nestedListAttributes.size()} > 0){
+
+## Generate embeded classes
+#set($obj = $jsonEntity)
+#foreach($o in ${obj.nestedObjectAttributes})
+#generateEmbededClass($o)
+#end
+
+#foreach($ob in ${obj.nestedListAttributes})
+#generateListObjectClass($ob)
+#end
+}
+#end
+#end
+#end
+
+################################################################################
+####################### MACRO : generate ListObject classes #######################
+
+#macro(generateListObjectClass $jsonEntity)
+#if(${jsonEntity})
+
+@Ignore
+@SerializedName("${jsonEntity.entityName}") var ${jsonEntity.entityName}: List<${jsonEntity.className}>? = null
+@Entity(tableName = "${jsonEntity.tableName}")
+data class ${jsonEntity.className}(
+#if(${jsonEntity.parentEntityId})var ${jsonEntity.parentEntityId}: String,#end
+
+#generateAttributesOfTheClass(${jsonEntity})
+
+#generateEmbededObjects(${jsonEntity.nestedObjectAttributes})
+)  {
+#set($obj = $jsonEntity)
+## Generate embeded classes
+#foreach($o in ${jsonEntity.nestedObjectAttributes})
+#generateEmbededClass($o)
+#end
+
+## Generate List classes
+#foreach($ob in ${jsonEntity.nestedListAttributes})
+#generateListObjectClass($ob)
+#end
+
+}
+
+#end
+#end

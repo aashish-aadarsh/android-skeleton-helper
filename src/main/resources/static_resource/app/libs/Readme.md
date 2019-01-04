@@ -1,0 +1,1 @@
+#This directory is used to add dependency which can't be done using dependency. E.g can be third party jar

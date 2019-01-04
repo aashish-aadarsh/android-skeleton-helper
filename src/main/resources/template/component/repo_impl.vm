@@ -1,0 +1,43 @@
+package ${applicationId}.datasource.repository.impl
+
+import android.app.Application
+import ${applicationId}.core.AppExecutors
+import ${applicationId}.vo.Status
+import ${applicationId}.datasource.repository.${RepositoryName}
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import ${applicationId}.vo.Resource
+
+class ${ClassName}
+private constructor(
+        application: Application,
+        appExecutors: AppExecutors)
+    : ${RepositoryName} {
+
+    private val mApplication: Application = application
+    private val mAppExecutors: AppExecutors = appExecutors
+    private var mPerformOperation: MutableLiveData<Resource<Any>> = MutableLiveData()
+
+    companion object {
+        private var INSTANCE: ${ClassName}? = null
+        fun getInstance(application: Application, appExecutors: AppExecutors): ${ClassName} {
+            if (null == INSTANCE) {
+                INSTANCE = ${ClassName}(application, appExecutors)
+            }
+            return INSTANCE as ${ClassName}
+        }
+
+    }
+
+    override fun doSomething(any: Any?): LiveData<Resource<Any>> {
+        mPerformOperation.value = Resource(Status.LOADING, null, null)
+
+        mAppExecutors.networkIO().execute {
+                Thread.sleep(1000)
+                mPerformOperation.postValue(Resource(Status.SUCCESS, true, null))
+        }
+
+        return mPerformOperation
+    }
+
+}

@@ -1,0 +1,105 @@
+package ${applicationId}.utility
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences.Editor
+import android.preference.PreferenceManager
+import android.util.Log
+import java.lang.reflect.InvocationTargetException
+import java.lang.reflect.Method
+
+/**
+ * Shared preferences configuration utils
+ */
+@SuppressLint("CommitPrefEdits")
+class PreferenceUtils
+/**
+ * Don't let anyone instantiate this class.
+ */
+private constructor() {
+
+    init {
+        throw Error("Do not need instantiate!")
+    }
+
+    companion object {
+
+        private val APPLY_METHOD = findApplyMethod()
+
+
+        operator fun set(context: Context, key: String, value: Float) {
+            val prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context)
+            val editor = prefs.edit()
+            editor.putFloat(key, value)
+            commitOrApply(editor)
+        }
+
+
+        operator fun set(context: Context, key: String, value: String) {
+            val prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context)
+            val editor = prefs.edit()
+            editor.putString(key, value)
+            commitOrApply(editor)
+        }
+
+        operator fun set(context: Context, key: String, value: Int) {
+            val prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context)
+            val editor = prefs.edit()
+            editor.putInt(key, value)
+            commitOrApply(editor)
+        }
+
+        operator fun set(context: Context, key: String, value: Boolean) {
+            val prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context)
+            val editor = prefs.edit()
+            editor.putBoolean(key, value)
+            commitOrApply(editor)
+        }
+
+
+        operator fun get(context: Context, key: String, defValue: String): String? {
+            val prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context)
+            return prefs.getString(key, defValue)
+        }
+
+
+        operator fun get(context: Context, key: String, defValue: Boolean): Boolean? {
+            val prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context)
+            return prefs.getBoolean(key, defValue)
+        }
+
+        private fun findApplyMethod(): Method? {
+            return try {
+                val cls = Editor::class.java
+                cls.getMethod("apply")
+            } catch (unused: NoSuchMethodException) {
+                Log.d("Failed:", "Failed to retrieve Editor.apply(); probably doesn't exist on this phone's OS.  Using Editor.commit() instead.")
+                null
+            }
+
+        }
+
+        private fun commitOrApply(editor: Editor) {
+            if (APPLY_METHOD != null) {
+                try {
+                    APPLY_METHOD.invoke(editor)
+                    return
+                } catch (e: InvocationTargetException) {
+                    Log.d("Failed:", "Failed while using Editor.apply().  Using Editor.commit() instead.")
+                } catch (e: IllegalAccessException) {
+                    Log.d("Failed:", "Failed while using Editor.apply().  Using Editor.commit() instead.")
+                }
+
+            }
+
+            editor.commit()
+        }
+    }
+
+}

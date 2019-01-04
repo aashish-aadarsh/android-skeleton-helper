@@ -1,0 +1,27 @@
+package ${applicationId}.datasource.network.retrofit
+
+import android.content.Context
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import ${applicationId}.utility.AppUtils
+import ${applicationId}.vo.AppConstants
+
+
+
+object RetrofitAPIClient {
+
+    private var retrofit: Retrofit? = null
+
+
+    fun getClient(context: Context): Retrofit? {
+
+        if (null == retrofit)
+            retrofit = Retrofit.Builder()
+                    .baseUrl(AppConstants.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create(AppUtils.gsonObject))
+                    .client(OkHttpClientInterceptor.instance)
+                    .build()
+
+        return retrofit
+    }
+}

@@ -1,0 +1,47 @@
+package ${applicationId}.view.${component}
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import ${applicationId}.R
+import ${applicationId}.core.AppExecutors
+import ${applicationId}.utility.CallBackCustom
+import ${applicationId}.view.common.DataBoundListAdapter
+import ${applicationId}.databinding.${BindingClassName}
+
+
+class ${ClassName}(
+        mAppExecutors: AppExecutors,
+        callback: CallBackCustom<${VOName}, ${BindingClassName}>
+) : DataBoundListAdapter<${VOName}, ${BindingClassName}>(
+        mAppExecutors = mAppExecutors,
+        mDiffCallback = object : DiffUtil.ItemCallback<${VOName}>() {
+            override fun areItemsTheSame(oldItem: ${VOName}, newItem: ${VOName}): Boolean {
+                TODO("not implemented")
+                return false
+            }
+
+            override fun areContentsTheSame(oldItem: ${VOName}, newItem: ${VOName}): Boolean {
+                TODO("not implemented")
+                return false
+            }
+        }
+) {
+
+    private val mCallback: CallBackCustom<${VOName}, ${BindingClassName}> = callback
+
+    override fun createBinding(parent: ViewGroup, viewType: Int): ${BindingClassName} {
+        return DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.${LayoutFileName},
+                parent,
+                false)
+    }
+
+    override fun bind(binding: ${BindingClassName}, item: ${VOName}) {
+        binding.${item} = item
+
+    }
+
+}
