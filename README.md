@@ -21,7 +21,7 @@ The generated manifest file does not specify default launcher activity.
 
 
 ## How to Use :
-1. Download the [AndroidSkeletonHelper.zip]() and extract to some directory.
+1. Download the [AndroidSkeletonHelper.zip](https://github.com/aashish-aadarsh/AndroidSkeletonHelper/raw/master/AndroidSkeletonHelper.zip) and extract to some directory.
 2. Go to extracted directory, you will find `AndroidSkeletonHelper.jar` and `properties` 
 directory.
 3. Go to `properties` directory :   
