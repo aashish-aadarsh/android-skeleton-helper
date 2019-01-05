@@ -2,8 +2,8 @@ package com.devop.aashish.constant;
 
 /**
  * @author : Aashish Aadarsh
- * @connect : https://github.com/aashish-aadarsh
- * @createdOn : 1/4/2019
+ * Follow Me:  "https://github.com/aashish-aadarsh"
+ * Created Date: 1/4/2019
  * <p>
  * This class is used to store the various key used in property files for generation of template.
  *

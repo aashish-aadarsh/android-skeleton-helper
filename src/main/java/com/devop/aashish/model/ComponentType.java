@@ -2,8 +2,8 @@ package com.devop.aashish.model;
 
 /**
  * @author : Aashish Aadarsh
- * @connect : https://github.com/aashish-aadarsh
- * @createdOn : 1/5/2019
+ * Follow Me:  "https://github.com/aashish-aadarsh"
+ * Created Date: 1/5/2019
  */
 public enum ComponentType {
 

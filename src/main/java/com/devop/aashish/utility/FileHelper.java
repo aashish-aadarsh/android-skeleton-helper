@@ -6,8 +6,8 @@ import java.util.List;
 
 /**
  * @author : Aashish Aadarsh
- * @connect : https://github.com/aashish-aadarsh
- * @createdOn : 1/4/2019
+ * Follow Me:  "https://github.com/aashish-aadarsh"
+ * Created Date: 1/4/2019
  * <p>
  * This is a utility class which is used to perform file related operation.
  * </p>

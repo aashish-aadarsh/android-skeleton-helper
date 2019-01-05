@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 /**
  * @author : Aashish Aadarsh
- * @connect : https://github.com/aashish-aadarsh
- * @createdOn : 1/4/2019
+ * Follow Me:  "https://github.com/aashish-aadarsh"
+ * Created Date: 1/4/2019
  * <p>
  * This utility class is  used to get the various path directory structure of android app
  */

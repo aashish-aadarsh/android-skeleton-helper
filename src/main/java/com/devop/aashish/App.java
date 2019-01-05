@@ -13,17 +13,17 @@ import java.io.IOException;
 
 /**
  * @author : Aashish Aadarsh
- * @connect : https://github.com/aashish-aadarsh
- * @createdOn : 1/4/2019
+ * Follow Me:  <a>"https://github.com/aashish-aadarsh"</a>
+ * Created Date: 1/4/2019
  * <p>
  * This is the main class for invocation.
  * Pass the location of properties folder through command line args
  * If command line args is null, application assumes the properties directory in current context
  * of execution.
- *
+ *</p>
  * <code>
  * java -jar AndroidSkeletonHelper.jar 'D://PathToPropertiesFolder//'
- * <p>
+ *
  * java -jar AndroidSkeletonHelper.jar
  * </code>
  */
