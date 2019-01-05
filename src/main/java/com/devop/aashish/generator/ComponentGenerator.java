@@ -14,6 +14,18 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author : Aashish Aadarsh
+ * Follow Me:  "https://github.com/aashish-aadarsh"
+ * Created Date: 1/5/2019
+ *
+ * <p>
+ * i. Generate XML files.
+ * ii. Generate Activites, Fragmnet
+ * iii. Generate Repo, RepoImpl, ViewModel
+ * iv. Generate Adapter and VO
+ * </p>
+ */
 public class ComponentGenerator {
     private static VelocityConfig config;
 

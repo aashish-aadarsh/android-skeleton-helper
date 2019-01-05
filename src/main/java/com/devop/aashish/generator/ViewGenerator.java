@@ -11,6 +11,15 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author : Aashish Aadarsh
+ * Follow Me:  "https://github.com/aashish-aadarsh"
+ * Created Date: 1/5/2019
+ *
+ * <p>
+ * i. Generate view module.
+ * </p>
+ */
 public class ViewGenerator {
 
     public static void generateView() {

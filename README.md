@@ -26,7 +26,7 @@ The generated manifest file does not specify default launcher activity.
 directory.
 3. Go to `properties` directory :   
        i. Modify `generator.properties` with desired property value.  
-       ii. Modify `version.properties` with desired value.
+       ii. Modify `version.properties` with desired value.  
        iii. Create the `json` file for which entities has to be generated.
 
 4. Open command prompt and change directory where jar file is present and execute bellow command.     
@@ -45,4 +45,4 @@ Feel free to report any issues, change request [Here](https://github.com/aashish
 #
 
 ##### Credits:
-[ApacheVelocity](http://velocity.apache.org/) 
+[Aashish Aadarsh](https://github.com/aashish-aadarsh) 

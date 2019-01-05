@@ -13,6 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author : Aashish Aadarsh
+ * Follow Me:  "https://github.com/aashish-aadarsh"
+ * Created Date: 1/5/2019
+ *
+ * <p>
+ * Generate AndroidManifest.xml.
+ * </p>
+ */
 public class AndroidManifestGenerator {
 
     public static void generateManifestFile() {

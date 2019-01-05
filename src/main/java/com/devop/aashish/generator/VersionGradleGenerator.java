@@ -12,6 +12,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * @author : Aashish Aadarsh
+ * Follow Me:  "https://github.com/aashish-aadarsh"
+ * Created Date: 1/5/2019
+ *
+ * <p>
+ * i. Generate version.gradle.
+ * </p>
+ */
 public class VersionGradleGenerator {
 
     public static void generateVersionGradleFile() {

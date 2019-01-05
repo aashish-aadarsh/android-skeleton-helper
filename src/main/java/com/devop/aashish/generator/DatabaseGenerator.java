@@ -24,6 +24,16 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author : Aashish Aadarsh
+ * Follow Me:  "https://github.com/aashish-aadarsh"
+ * Created Date: 1/5/2019
+ *
+ * <p>
+ * i. Generate Database class.
+ * ii. Generate Entity, Dao
+ * </p>
+ */
 public class DatabaseGenerator {
 
     public static Set<String> entityListName = new HashSet<>();

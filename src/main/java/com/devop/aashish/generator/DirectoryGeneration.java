@@ -7,6 +7,15 @@ import com.devop.aashish.utility.PathUtil;
 
 import java.io.IOException;
 
+/**
+ * @author : Aashish Aadarsh
+ * Follow Me:  "https://github.com/aashish-aadarsh"
+ * Created Date: 1/5/2019
+ *
+ * <p>
+ * Creates package skeleton
+ * </p>
+ */
 public class DirectoryGeneration {
 
 

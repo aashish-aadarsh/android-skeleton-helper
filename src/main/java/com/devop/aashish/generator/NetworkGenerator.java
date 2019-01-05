@@ -11,6 +11,16 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author : Aashish Aadarsh
+ * Follow Me:  "https://github.com/aashish-aadarsh"
+ * Created Date: 1/5/2019
+ *
+ * <p>
+ * i. Generate network module.
+ * </p>
+ */
+
 public class NetworkGenerator {
 
     public static void generateNetwork() {
