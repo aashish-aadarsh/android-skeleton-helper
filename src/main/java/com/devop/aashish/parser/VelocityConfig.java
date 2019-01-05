@@ -13,20 +13,42 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
+/**
+ * @author : Aashish Aadarsh
+ * @connect : https://github.com/aashish-aadarsh
+ * @createdOn : 1/5/2019
+ *
+ * <p>
+ * This utility class is  used to init velocity template
+ * </p>
+ */
 public class VelocityConfig {
     private Logger logger = LoggerFactory.getLogger(VelocityConfig.class.getName());
 
+    /**
+     * Initialize velocity config
+     */
     public void initInfo() {
         Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         Velocity.init();
     }
 
+    /**
+     * @param paramMap for velocity context
+     * @return velocity context for provided Map
+     */
     public VelocityContext getVelocityContext(Map<String, String> paramMap) {
         VelocityContext context = new VelocityContext();
         paramMap.forEach(context::put);
         return context;
     }
+
+    /**
+     *
+     * @param paramMap for velocity context
+     * @return velocity context for provided Map
+     */
 
     public VelocityContext getVelocityContextObject(Map<String, Object> paramMap) {
         VelocityContext context = new VelocityContext();
@@ -35,6 +57,12 @@ public class VelocityConfig {
     }
 
 
+    /**
+     *
+     * @param outputFileLocation where file is to be generated
+     * @param templateFilePath the location of template file
+     * @param context of velocity config
+     */
     public void writeFile(String outputFileLocation, String templateFilePath, VelocityContext context) {
         logger.debug("Writing file...{},{},{}", outputFileLocation, templateFilePath, context.internalGetKeys());
         try {

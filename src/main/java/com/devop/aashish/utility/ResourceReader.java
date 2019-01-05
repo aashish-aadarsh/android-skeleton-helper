@@ -32,6 +32,7 @@ class ResourceReader {
      *                     <p>
      *                     System identifies if the method invocation is from jar file or from IDE and afterwards it
      *                     process the file copy operation.
+     *                     </p>
      */
     @SuppressWarnings({"ResultOfMethodCallIgnored"})
     void getStaticResourceDirectory(String targetDirectory, String inputPathDirectory) throws IOException {

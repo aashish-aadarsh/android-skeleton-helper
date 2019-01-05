@@ -9,9 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
+/**
+ * @author : Aashish Aadarsh
+ * @connect : https://github.com/aashish-aadarsh
+ * @createdOn : 1/5/2019
+ *
+ * <p>
+ * This utility class is  used to parse json for entity creation.
+ * </p>
+ */
 public class JsonEntityParser {
 
+    /**
+     * @param resourceName of input json
+     * @param inputObject  parsed from value in json file
+     * @return JSON entity used in velocity template
+     */
     public static JsonEntity parseJsonToEntity(String resourceName, JSONObject inputObject) {
         JsonEntity jsonEntity = new JsonEntity(AttributeHelper.getEntityName(resourceName),
                 AttributeHelper.getPrefixName(resourceName), AttributeHelper.getTableName(resourceName),
@@ -23,6 +36,11 @@ public class JsonEntityParser {
         return jsonEntity;
     }
 
+    /**
+     *
+     * @param jsonEntity created from input json
+     * @param inputObject input json
+     */
     @SuppressWarnings("unchecked")
     private static void performParsing(JsonEntity jsonEntity, JSONObject inputObject) {
         Set<String> keySet = inputObject.keySet();
@@ -33,6 +51,14 @@ public class JsonEntityParser {
         }
     }
 
+    /**
+     *
+     * @param key of json
+     * @param jsonObjectValue value of key
+     * @param parentIdFieldName id field of parent entity which has to be set in mapping table of list object
+     * @param parentJsonEntity of the current key getting parsed
+     * @param isListObjectEntity to check if key is a nested list object
+     */
     private static void processObject(String key, Object jsonObjectValue, String parentIdFieldName,
                                       JsonEntity parentJsonEntity, boolean isListObjectEntity) {
 
@@ -77,6 +103,13 @@ public class JsonEntityParser {
 
     }
 
+    /**
+     *
+     * @param primitiveAttributes input list
+     * @param key of entity
+     * @param dataType of variable of entity
+     * @return list of attributes of entity with their data type
+     */
     private static List<JsonEntity.AttributeEntity> updatePrimitiveAttribs(List<JsonEntity.AttributeEntity> primitiveAttributes,
                                                                            String key, String dataType) {
         JsonEntity.AttributeEntity resource = new JsonEntity.AttributeEntity();

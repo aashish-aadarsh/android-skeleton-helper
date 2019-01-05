@@ -2,6 +2,15 @@ package com.devop.aashish.model;
 
 import java.util.List;
 
+/**
+ * @author : Aashish Aadarsh
+ * @connect : https://github.com/aashish-aadarsh
+ * @createdOn : 1/5/2019
+ *
+ * <p>
+ * This model class map key of json file.
+ * </p>
+ */
 public class JsonEntity {
 
     private String entityName;

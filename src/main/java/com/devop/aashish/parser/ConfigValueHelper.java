@@ -5,6 +5,16 @@ import com.devop.aashish.model.ComponentType;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author : Aashish Aadarsh
+ * @connect : https://github.com/aashish-aadarsh
+ * @createdOn : 1/5/2019
+ *
+ * <p>
+ * This utility class is  used to get the name of various application variables.
+ * </p>
+ */
+
 public class ConfigValueHelper {
 
     static String getAppName() {
@@ -37,14 +47,6 @@ public class ConfigValueHelper {
 
     public static String getRootDirectory() {
         return DirectoryConfig.rootDirectory;
-    }
-
-    public static String getAppDirectory() {
-        return DirectoryConfig.appDirectory;
-    }
-
-    public static String getSrcDirectory() {
-        return DirectoryConfig.srcDirectory;
     }
 
     public static String getMainDirectory() {

@@ -1,8 +1,16 @@
 package com.devop.aashish.constant;
 
-public class ApplicationConstant {
+/**
+ * @author : Aashish Aadarsh
+ * @connect : https://github.com/aashish-aadarsh
+ * @createdOn : 1/5/2019
+ * <p>
+ * This class is used to store the various constant of android application system .
+ *
+ * <B> !! Do Not Alter the values in this class. !! </B>
+ */
 
-    public static final String AUTHOR_AASHISH = "Aashish Aadarsh";
+public class ApplicationConstant {
 
     public static class DirectoryConstant {
         public static final String DIR_APP = "app";

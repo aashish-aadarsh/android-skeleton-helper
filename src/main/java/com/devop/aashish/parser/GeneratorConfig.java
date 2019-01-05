@@ -7,6 +7,16 @@ import com.devop.aashish.utility.PropertyFileUtil;
 
 import java.util.*;
 
+
+/**
+ * @author : Aashish Aadarsh
+ * @connect : https://github.com/aashish-aadarsh
+ * @createdOn : 1/5/2019
+ *
+ * <p>
+ * This utility class is  used to initialize property file reading, parsing the key from file.
+ * </p>
+ */
 public class GeneratorConfig {
 
     static String appName;
@@ -22,6 +32,9 @@ public class GeneratorConfig {
     }
 
 
+    /**
+     * Initialize the property reading
+     */
     public void initInfo() {
         PropertyFileUtil propertyFileUtil = new PropertyFileUtil(generatorFilePath, PropertyFileConstant.GENERATOR_PROPERTIES);
         appName = propertyFileUtil.getProperty(PropertyFileConstant.APPLICATION_NAME);
@@ -31,20 +44,22 @@ public class GeneratorConfig {
         parseAppComponents(propertyFileUtil);
     }
 
+    /**
+     * @param propertyFileUtil for parsing the app component for activity, fragment, adapters
+     */
     private void parseAppComponents(PropertyFileUtil propertyFileUtil) {
         String appComponentInput = propertyFileUtil.getProperty(PropertyFileConstant.APP_COMPONENT);
         String appComponentAdapterInput = propertyFileUtil.getProperty(PropertyFileConstant.ADAPTER_FOR_COMPONENT);
 
         if (appComponentInput != null) {
             String[] components = appComponentInput.split(PropertyFileConstant.APP_COMPONENT_SEPARATOR);
-            for (String component : components) {
-                component = component.trim();
-                if (component.startsWith(PropertyFileConstant.APP_COMPONENT_ACTIVITY)) {
+            Arrays.stream(components).map(String::trim).forEach(component -> {
+                if (component.startsWith(PropertyFileConstant.APP_COMPONENT_ACTIVITY))
                     appComponents.put(ComponentParser.parseComponentName(component), ComponentType.ACTIVITY);
-                } else if (component.startsWith(PropertyFileConstant.APP_COMPONENT_FRAGMENT)) {
+                else if (component.startsWith(PropertyFileConstant.APP_COMPONENT_FRAGMENT)) {
                     appComponents.put(ComponentParser.parseComponentName(component), ComponentType.FRAGMENT);
                 }
-            }
+            });
 
         }
 

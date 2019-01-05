@@ -1,7 +1,16 @@
 package com.devop.aashish.constant;
 
+/**
+ * @author : Aashish Aadarsh
+ * @connect : https://github.com/aashish-aadarsh
+ * @createdOn : 1/5/2019
+ * <p>
+ * This class is used to store the name of template file, and static classes.
+ *
+ * <B> !! Do Not Alter the values in this class. !! </B>
+ */
 public class TemplateFileConstant {
-    public static final String AUTHOR = "author";
+
     public static final String KEY_APP_ID = "applicationId";
     public static final String APP_DATABASE_NAME = "app_db_name";
     public static final String KEY_CLASS_NAME = "ClassName";

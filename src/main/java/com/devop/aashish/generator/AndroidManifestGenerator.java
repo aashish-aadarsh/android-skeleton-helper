@@ -1,6 +1,5 @@
 package com.devop.aashish.generator;
 
-import com.devop.aashish.constant.ApplicationConstant;
 import com.devop.aashish.constant.TemplateFileConstant;
 import com.devop.aashish.model.ComponentType;
 import com.devop.aashish.parser.ConfigValueHelper;
@@ -30,7 +29,6 @@ public class AndroidManifestGenerator {
     private static Map<String, Object> getValues() {
         Map<String, Object> param = new HashMap<>();
         param.put(TemplateFileConstant.KEY_APP_ID, ConfigValueHelper.getApplicationId());
-        param.put(TemplateFileConstant.AUTHOR, ApplicationConstant.AUTHOR_AASHISH);
 
         Map<String, ComponentType> appComponents = ConfigValueHelper.getAppComponents();
         List<String> activityList = new ArrayList<>();

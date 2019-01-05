@@ -1,6 +1,5 @@
 package com.devop.aashish.generator;
 
-import com.devop.aashish.constant.ApplicationConstant;
 import com.devop.aashish.constant.PropertyFileConstant;
 import com.devop.aashish.constant.TemplateFileConstant;
 import com.devop.aashish.parser.ConfigValueHelper;
@@ -33,7 +32,6 @@ public class VersionGradleGenerator {
         Properties properties = propertyFileUtil.getProp();
         Map<String, String> param = new HashMap(properties);
         param.put(TemplateFileConstant.KEY_APP_ID, ConfigValueHelper.getApplicationId());
-        param.put(TemplateFileConstant.AUTHOR, ApplicationConstant.AUTHOR_AASHISH);
         return param;
     }
 }

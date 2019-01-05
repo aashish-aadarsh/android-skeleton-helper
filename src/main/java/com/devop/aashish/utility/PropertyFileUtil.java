@@ -15,6 +15,7 @@ import java.util.Properties;
  * @createdOn : 1/4/2019
  * <p>
  * This is a utility class which is used to read property from files stored in system.
+ * </p>
  */
 
 

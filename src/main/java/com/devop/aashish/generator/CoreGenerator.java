@@ -45,7 +45,6 @@ public class CoreGenerator {
     private static Map<String, String> getValues() {
         Map<String, String> param = new HashMap<>();
         param.put(TemplateFileConstant.KEY_APP_ID, ConfigValueHelper.getApplicationId());
-        param.put(TemplateFileConstant.AUTHOR, ApplicationConstant.AUTHOR_AASHISH);
         return param;
     }
 }
