@@ -29,7 +29,7 @@ directory.
        ii. Modify `version.properties` with desired value.  
        iii. Create the `json` file for which entities has to be generated.
 
-4. Open command prompt and change directory where jar file is present and execute bellow command.     
+4. Open command prompt and change directory where jar file is present and execute below command.     
          `java -jar AndroidSkeletonHelper`  
          
     Make sure jar and properties directory are present in same directory.
