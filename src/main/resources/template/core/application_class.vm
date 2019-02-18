@@ -47,7 +47,7 @@ class ApplicationClass : MultiDexApplication() {
     companion object {
         private const val TAG = "ApplicationClass"
         @SuppressLint("StaticFieldLeak")
-        var appContext: Context? = AppHolder.context
+        lateinit var appContext: Context
 
     }
 
