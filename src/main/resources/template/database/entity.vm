@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 import androidx.room.Ignore
 import com.google.gson.annotations.SerializedName
 
+//TODO define @PrimaryKey annotation before running
+
 @Entity(tableName = "${jsonEntity.tableName}")
 data class ${jsonEntity.className}(
 #generateAttributesOfTheClass(${jsonEntity})
