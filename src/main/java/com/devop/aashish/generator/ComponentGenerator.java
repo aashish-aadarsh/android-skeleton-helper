@@ -18,7 +18,7 @@ import java.util.Map;
  * @author : Aashish Aadarsh
  * Follow Me:  "https://github.com/aashish-aadarsh"
  * Created Date: 1/5/2019
- *
+ * <p>
  * <p>
  * i. Generate XML files.
  * ii. Generate Activites, Fragmnet
@@ -67,6 +67,7 @@ public class ComponentGenerator {
                 ConfigValueHelper.getMainDirectory());
         FileHelper.createDirectory(packageDirectory);
 
+        componentName = ComponentParser.getPascalCaseName(componentName);
         if (generateActivity) {
             String activityName = ComponentParser.getActivityLayoutName(componentName);
             config.writeFile(
@@ -153,8 +154,7 @@ public class ComponentGenerator {
     }
 
     private static void generateActivity(String componentName) {
-        String layoutName = ComponentParser.getClassNameFromFileName
-                (ComponentParser.getActivityLayoutName(componentName));
+
         String fileName = ComponentParser.getActivityName(componentName);
         String className = ComponentParser.getClassNameFromFileName(fileName);
 
@@ -163,6 +163,8 @@ public class ComponentGenerator {
 
         String bindingClassName = ComponentParser.getBindingClassNameForActivity(componentName);
 
+        String layoutName = ComponentParser.getClassNameFromFileName
+                (ComponentParser.getActivityLayoutName(ComponentParser.getPascalCaseName(componentName)));
 
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put(TemplateFileConstant.KEY_APP_ID, ConfigValueHelper.getApplicationId());
@@ -188,7 +190,7 @@ public class ComponentGenerator {
 
     private static void generateFragments(String componentName) {
         String layoutName = ComponentParser.getClassNameFromFileName
-                (ComponentParser.getFragmentLayoutName(componentName));
+                (ComponentParser.getFragmentLayoutName(ComponentParser.getPascalCaseName(componentName)));
 
         String fileName = ComponentParser.getFragmentName(componentName);
 
@@ -236,6 +238,9 @@ public class ComponentGenerator {
         String packageDirectory = PathUtil.getFilePathFromPackage(ApplicationConstant.PackageConstant.DIRECTORY_LAYOUT,
                 ConfigValueHelper.getMainDirectory());
         FileHelper.createDirectory(packageDirectory);
+
+        componentName = ComponentParser.getPascalCaseName(componentName);
+
         String layoutName = ComponentParser.getItemLayoutName(componentName);
         VelocityContext velocityContext = config.getVelocityContext(paramMap);
 
@@ -277,7 +282,7 @@ public class ComponentGenerator {
 
     private static void generateAdapterClass(String componentName) {
         String layoutName = ComponentParser.getClassNameFromFileName
-                (ComponentParser.getItemLayoutName(componentName));
+                (ComponentParser.getItemLayoutName(ComponentParser.getPascalCaseName(componentName)));
 
         String fileName = ComponentParser.getAdapterName(componentName);
 

@@ -13,7 +13,7 @@ import java.util.Set;
  * @author : Aashish Aadarsh
  * Follow Me:  "https://github.com/aashish-aadarsh"
  * Created Date: 1/5/2019
- *
+ * <p>
  * <p>
  * This utility class is  used to parse json for entity creation.
  * </p>
@@ -37,8 +37,7 @@ public class JsonEntityParser {
     }
 
     /**
-     *
-     * @param jsonEntity created from input json
+     * @param jsonEntity  created from input json
      * @param inputObject input json
      */
     @SuppressWarnings("unchecked")
@@ -52,11 +51,10 @@ public class JsonEntityParser {
     }
 
     /**
-     *
-     * @param key of json
-     * @param jsonObjectValue value of key
-     * @param parentIdFieldName id field of parent entity which has to be set in mapping table of list object
-     * @param parentJsonEntity of the current key getting parsed
+     * @param key                of json
+     * @param jsonObjectValue    value of key
+     * @param parentIdFieldName  id field of parent entity which has to be set in mapping table of list object
+     * @param parentJsonEntity   of the current key getting parsed
      * @param isListObjectEntity to check if key is a nested list object
      */
     private static void processObject(String key, Object jsonObjectValue, String parentIdFieldName,
@@ -69,14 +67,18 @@ public class JsonEntityParser {
                     new ArrayList<>(), new ArrayList<>());
 
             embeddedObject.setClassName(AttributeHelper.getEntityName(key));
-
+            if (null != parentJsonEntity)
+                embeddedObject.setCompleteEntityName(AttributeHelper.
+                        getEntityName(parentJsonEntity.getCompleteEntityName()) + "."
+                        + AttributeHelper.getEntityName(key));
             if (isListObjectEntity) {
                 embeddedObject.setListEntity(true);
                 embeddedObject.setParentEntityId(parentIdFieldName);
                 embeddedObject.setTableName(AttributeHelper.getTableName(key));
-                embeddedObject.setCompleteEntityName(AttributeHelper.
-                        getEntityName(parentJsonEntity.getCompleteEntityName()) + "."
-                        + AttributeHelper.getEntityName(key));
+                if (null != parentJsonEntity)
+                    embeddedObject.setCompleteEntityName(AttributeHelper.
+                            getEntityName(parentJsonEntity.getCompleteEntityName()) + "."
+                            + AttributeHelper.getEntityName(key));
                 DatabaseGenerator.entityListName.add(embeddedObject.getCompleteEntityName());
             }
 
@@ -104,10 +106,9 @@ public class JsonEntityParser {
     }
 
     /**
-     *
      * @param primitiveAttributes input list
-     * @param key of entity
-     * @param dataType of variable of entity
+     * @param key                 of entity
+     * @param dataType            of variable of entity
      * @return list of attributes of entity with their data type
      */
     private static List<JsonEntity.AttributeEntity> updatePrimitiveAttribs(List<JsonEntity.AttributeEntity> primitiveAttributes,

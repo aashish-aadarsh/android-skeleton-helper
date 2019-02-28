@@ -6,10 +6,13 @@ import androidx.room.PrimaryKey
 import androidx.room.Ignore
 import com.google.gson.annotations.SerializedName
 
-//TODO define @PrimaryKey annotation before running
 
 @Entity(tableName = "${jsonEntity.tableName}")
 data class ${jsonEntity.className}(
+
+@PrimaryKey(autoGenerate = true)
+var uniqueIdentityKey: Long? = null,
+
 #generateAttributesOfTheClass(${jsonEntity})
 #generateEmbededObjects(${jsonEntity.nestedObjectAttributes})
 )  {
@@ -72,8 +75,7 @@ data class ${jsonEntity.className}(
 #foreach($o in ${obj.nestedObjectAttributes})
 #generateEmbededClass($o)
 #end
-
-#foreach($ob in ${obj.nestedListAttributes})
+#foreach($ob in $jsonEntity.nestedListAttributes)
 #generateListObjectClass($ob)
 #end
 }
@@ -91,6 +93,10 @@ data class ${jsonEntity.className}(
 @SerializedName("${jsonEntity.entityName}") var ${jsonEntity.entityName}: List<${jsonEntity.className}>? = null
 @Entity(tableName = "${jsonEntity.tableName}")
 data class ${jsonEntity.className}(
+
+@PrimaryKey(autoGenerate = true)
+var uniqueIdentityKey: Long? = null,
+
 #if(${jsonEntity.parentEntityId})var ${jsonEntity.parentEntityId}: String,#end
 
 #generateAttributesOfTheClass(${jsonEntity})
