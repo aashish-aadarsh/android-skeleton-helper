@@ -26,7 +26,6 @@ class ${ClassName} : AppCompatActivity() {
     private fun initVariables() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.${LayoutFileName})
         viewModel = ViewModelProviders.of(this).get(${ViewModelName}::class.java)
-        viewModel.initFragmentManager(supportFragmentManager)
     }
 
     private fun initListener() {
