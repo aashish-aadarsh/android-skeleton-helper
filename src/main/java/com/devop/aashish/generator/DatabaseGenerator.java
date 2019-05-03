@@ -37,9 +37,10 @@ import java.util.Set;
 public class DatabaseGenerator {
 
     public static Set<String> entityListName = new HashSet<>();
+    public static Set<JsonEntity> daoList = new HashSet<>();
+    public static Set<String> daoListName = new HashSet<>();
     private static Logger logger = LoggerFactory.getLogger(DatabaseGenerator.class);
     private static VelocityConfig config;
-    private static Set<String> daoList = new HashSet<>();
 
     public static void generateDBComponent(String inputDirectory) throws IOException {
         config = new VelocityConfig();
@@ -59,15 +60,14 @@ public class DatabaseGenerator {
                         JSONObject jsonObject = (JSONObject) obj;
                         JsonEntity jsonEntity = JsonEntityParser.parseJsonToEntity
                                 (file.getName().split("\\.")[0], jsonObject);
-                        daoList.add(jsonEntity.getClassName());
                         generateEntity(jsonEntity);
-                        generateDao(jsonEntity);
                     } catch (ParseException e) {
                         logger.error("\n\n\nUnable to parse json.. Please check json {}..\n\n\n", file.getName());
                     }
 
                 }
             }
+            generateDao();
         } else {
             logger.warn("\nNo directory named entity present....");
         }
@@ -108,21 +108,23 @@ public class DatabaseGenerator {
                 , TemplateFileConstant.BASE_DAO_LOCATION, velocityContext);
     }
 
-    private static void generateDao(JsonEntity jsonEntity) {
-        String fileName = ComponentParser.getDaoClass(jsonEntity.getClassName());
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put(TemplateFileConstant.KEY_APP_ID, ConfigValueHelper.getApplicationId());
-        paramMap.put(TemplateFileConstant.KEY_JSON_ENTITY, jsonEntity);
+    private static void generateDao() {
+        DatabaseGenerator.daoList.forEach(jsonEntity -> {
+            String fileName = ComponentParser.getDaoClass(jsonEntity.getCompleteEntityName().replaceAll("\\.", ""));
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put(TemplateFileConstant.KEY_APP_ID, ConfigValueHelper.getApplicationId());
+            paramMap.put(TemplateFileConstant.KEY_JSON_ENTITY, jsonEntity);
 
-        VelocityContext velocityContext = config.getVelocityContextObject(paramMap);
+            VelocityContext velocityContext = config.getVelocityContextObject(paramMap);
 
-        String packageDirectory = PathUtil.getFilePathFromPackage(ApplicationConstant.
-                        PackageConstant.DATA_SOURCE_DB_DAO,
-                ConfigValueHelper.getMainJavaDirectory());
-        config.writeFile(
-                packageDirectory +
-                        File.separator + fileName
-                , TemplateFileConstant.DAO_LOCATION, velocityContext);
+            String packageDirectory = PathUtil.getFilePathFromPackage(ApplicationConstant.
+                            PackageConstant.DATA_SOURCE_DB_DAO,
+                    ConfigValueHelper.getMainJavaDirectory());
+            config.writeFile(
+                    packageDirectory +
+                            File.separator + fileName
+                    , TemplateFileConstant.DAO_LOCATION, velocityContext);
+        });
     }
 
     private static void generateDatabase() {
@@ -132,7 +134,7 @@ public class DatabaseGenerator {
         param.put(TemplateFileConstant.KEY_APP_ID, ConfigValueHelper.getApplicationId());
         param.put(TemplateFileConstant.APP_DATABASE_NAME, ConfigValueHelper.getAppDatabaseName());
         param.put(TemplateFileConstant.KEY_ENTITIES, entityListName);
-        param.put(TemplateFileConstant.KEY_DAO, daoList);
+        param.put(TemplateFileConstant.KEY_DAO, daoListName);
         param.put("AttributeHelper", new AttributeHelper());
 
         VelocityContext velocityContext = config.getVelocityContextObject(param);

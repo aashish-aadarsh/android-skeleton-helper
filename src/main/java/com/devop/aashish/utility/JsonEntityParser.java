@@ -32,6 +32,9 @@ public class JsonEntityParser {
         jsonEntity.setClassName(AttributeHelper.getEntityName(resourceName));
         jsonEntity.setCompleteEntityName(AttributeHelper.getEntityName(resourceName));
         DatabaseGenerator.entityListName.add(jsonEntity.getCompleteEntityName());
+        DatabaseGenerator.daoList.add(jsonEntity);
+        DatabaseGenerator.daoListName.add(jsonEntity.getCompleteEntityName().replaceAll("\\.", ""));
+
         performParsing(jsonEntity, inputObject);
         return jsonEntity;
     }
@@ -80,6 +83,8 @@ public class JsonEntityParser {
                             getEntityName(parentJsonEntity.getCompleteEntityName()) + "."
                             + AttributeHelper.getEntityName(key));
                 DatabaseGenerator.entityListName.add(embeddedObject.getCompleteEntityName());
+                DatabaseGenerator.daoList.add(embeddedObject);
+                DatabaseGenerator.daoListName.add(embeddedObject.getCompleteEntityName().replaceAll("\\.", ""));
             }
 
             if (parentJsonEntity != null && !isListObjectEntity) {

@@ -6,12 +6,12 @@ import androidx.room.Insert
 import androidx.room.Delete
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import ${applicationId}.datasource.database.entity.${jsonEntity.className}
+import ${applicationId}.datasource.database.entity.*
 
 
 @Dao
-interface ${jsonEntity.className}Dao : BaseDao<${jsonEntity.className}> {
+interface ${jsonEntity.completeEntityNameWithoutDot}Dao : BaseDao<${jsonEntity.completeEntityName}> {
 
     @Query("SELECT * FROM ${jsonEntity.tableName}")
-    fun fetchAll(): LiveData<List<${jsonEntity.className}>>
+    fun fetchAll(): LiveData<List<${jsonEntity.completeEntityName}>>
 }

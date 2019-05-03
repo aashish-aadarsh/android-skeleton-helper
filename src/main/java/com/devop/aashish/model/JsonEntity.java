@@ -15,6 +15,7 @@ public class JsonEntity {
 
     private String entityName;
     private String completeEntityName;
+    private String completeEntityNameWithoutDot;
     private String className;
 
     private String parentEntityId;
@@ -27,7 +28,6 @@ public class JsonEntity {
 
     private List<JsonEntity> nestedListAttributes;
 
-
     public JsonEntity(String entityName, String prefix, String tableName, List<AttributeEntity> primitiveAttributes,
                       List<JsonEntity> nestedObjectAttributes, List<JsonEntity> nestedListAttributes) {
         super();
@@ -39,6 +39,13 @@ public class JsonEntity {
         this.nestedListAttributes = nestedListAttributes;
     }
 
+    public String getCompleteEntityNameWithoutDot() {
+        return completeEntityNameWithoutDot;
+    }
+
+    public void setCompleteEntityNameWithoutDot(String completeEntityNameWithoutDot) {
+        this.completeEntityNameWithoutDot = completeEntityNameWithoutDot;
+    }
 
     public String getEntityName() {
         return entityName;
@@ -135,6 +142,7 @@ public class JsonEntity {
 
     public void setCompleteEntityName(String completeEntityName) {
         this.completeEntityName = completeEntityName;
+        this.completeEntityNameWithoutDot = completeEntityName.replaceAll("\\.", "");
     }
 
     @Override
