@@ -30,7 +30,7 @@ directory.
        iii. Create the `json` file for which entities has to be generated.
 
 4. Open command prompt and change directory where jar file is present and execute below command.     
-         `java -jar AndroidSkeletonHelper`  
+         `java -jar AndroidSkeletonHelper.jar`  
          
     Make sure jar and properties directory are present in same directory.
  5. Wait till application finishes its execution.
