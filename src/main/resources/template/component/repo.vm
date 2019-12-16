@@ -2,8 +2,14 @@ package ${applicationId}.datasource.repository
 
 import androidx.lifecycle.LiveData
 import ${applicationId}.vo.Resource
-
+#if($GenerateRV)
+import ${applicationId}.datasource.database.entity.${EntityName}
+#end
 interface ${ClassName} {
-
-    fun doSomething(any: Any?): LiveData<Resource<Any>>
+#if($GenerateRV)
+     fun create${EntityName}(obj: ${EntityName}): LiveData<Resource<${EntityName}>>
+     fun update${EntityName}(obj: ${EntityName}): LiveData<Resource<${EntityName}>>
+     fun delete${EntityName}(obj: ${EntityName}): LiveData<Resource<Boolean>>
+     fun getAll${EntityName}(): LiveData<Resource<List<${EntityName}>>>
+#end
 }

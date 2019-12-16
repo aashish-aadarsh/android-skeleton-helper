@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class ViewGenerator {
 
-    public static void generateView() {
+    public static void generateCommonView() {
         VelocityConfig config = new VelocityConfig();
         config.initInfo();
         Map<String, String> versionGradleMap = getValues();

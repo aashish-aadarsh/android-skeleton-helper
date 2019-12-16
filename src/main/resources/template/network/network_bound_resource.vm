@@ -30,7 +30,7 @@ protected constructor(private val mAppExecutors: AppExecutors) {
     private val result = MediatorLiveData<Resource<ResultType>>()
 
     init {
-        result.value = Resource.loading(null)
+        result.value = Resource.loading()
         @Suppress("LeakingThis")
         val dbSource = loadFromDb()
         result.addSource(dbSource) { data ->
@@ -46,7 +46,7 @@ protected constructor(private val mAppExecutors: AppExecutors) {
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
         val retrofitCall = createCall()
         // we re-attach dbSource as a new source, it will dispatch its latest value quickly
-        result.addSource(dbSource) { newData -> result.setValue(Resource.loading(newData)) }
+        result.addSource(dbSource) { newData -> result.setValue(Resource.loading()) }
         result.removeSource(dbSource)
         retrofitCall?.enqueue(object : Callback<RequestType> {
             override fun onFailure(call: Call<RequestType>, t: Throwable) {
@@ -55,7 +55,7 @@ protected constructor(private val mAppExecutors: AppExecutors) {
                     result.addSource(dbSource)
                     { requestType ->
                         run {
-                            result.value = t.message?.let { Resource.error(it, requestType) }
+                            result.value = t.message?.let { Resource.error(it) }
                         }
                     }
                 }

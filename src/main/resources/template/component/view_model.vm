@@ -5,12 +5,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import ${applicationId}.R
 import ${applicationId}.core.AppExecutors
 import ${applicationId}.core.Injection
 import ${applicationId}.datasource.repository.${RepositoryName}
+#if($GenerateRV)
+import ${applicationId}.datasource.database.entity.${EntityName}
+#end
 import ${applicationId}.datasource.repository.impl.${RepositoryImplName}
 import ${applicationId}.utility.ActivityUtils
 import ${applicationId}.vo.Resource
@@ -20,21 +21,16 @@ class ${ClassName}(application: Application) : AndroidViewModel(application) {
     private var mFragment: String? = null
     private var mFragmentManager: FragmentManager? = null
     private var mActiveFragment: Fragment? = null
-    private val mAppExecutors: AppExecutors
-    private val mApplication: Application
-    private var mTrueLiveData: MutableLiveData<Boolean> = MutableLiveData()
-    private var mPerformOperation: LiveData<Resource<Any>> = MutableLiveData()
+    private val mAppExecutors: AppExecutors = Injection.provideAppExecutors()
+    private val mApplication: Application = application
     private val mRepository: ${RepositoryName}
 
     init {
-        mTrueLiveData.value = true
-        mApplication = application
-        mAppExecutors = Injection.provideAppExecutors()
         mRepository = ${RepositoryImplName}.getInstance(application, mAppExecutors)
     }
 
     fun initFragmentManager(fragmentManager: FragmentManager) {
-        mFragmentManager = checkNotNull(fragmentManager)
+        mFragmentManager = fragmentManager
     }
 
     fun navigateToChildFragment(fragment: Fragment) {
@@ -46,14 +42,21 @@ class ${ClassName}(application: Application) : AndroidViewModel(application) {
                 , R.id.fragment_container, fragment::class.simpleName!!)
         mFragment = fragment::class.simpleName
     }
-
-    fun initLiveData() {
-        mPerformOperation = Transformations.switchMap(mTrueLiveData){
-            mRepository.doSomething(null)
-        }
+    #if($GenerateRV)
+    fun getAll${EntityName}(): LiveData<Resource<List<${EntityName}>>> {
+        return mRepository.getAll${EntityName}()
     }
 
-    fun doOperation(): LiveData<Resource<Any>> {
-        return mPerformOperation;
+    fun create${EntityName}(obj: ${EntityName}):LiveData<Resource<${EntityName}>>{
+        return mRepository.create${EntityName}(obj)
     }
+
+    fun update${EntityName}(obj: ${EntityName}):LiveData<Resource<${EntityName}>>{
+        return mRepository.update${EntityName}(obj)
+    }
+
+    fun delete${EntityName}(obj: ${EntityName}):LiveData<Resource<Boolean>>{
+        return mRepository.delete${EntityName}(obj)
+    }
+    #end
 }

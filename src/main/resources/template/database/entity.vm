@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Ignore
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 @Entity(tableName = "${jsonEntity.tableName}")
@@ -15,7 +16,7 @@ var uniqueIdentityKey: Long? = null,
 
 #generateAttributesOfTheClass(${jsonEntity})
 #generateEmbededObjects(${jsonEntity.nestedObjectAttributes})
-)  {
+):Serializable  {
 ## Generate embeded classes
 #foreach(${jsonEntity} in ${jsonEntity.nestedObjectAttributes})
 #generateEmbededClass($jsonEntity)

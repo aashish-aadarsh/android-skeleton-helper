@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="obj"
+            type="${applicationId}.datasource.database.entity.${EntityName}" />
+
+        <variable
+            name="headerName"
+            type="String" />
+    </data>
+
+    <ScrollView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="@dimen/dimen_5_dp"
+              android:orientation="vertical">
+
+          <TextView
+            android:id="@+id/tvHeader"
+            style="@style/HeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{headerName}" />
+
+#foreach($ui in ${uiComponents})
+    #if($ui.attributeType=="EditText")
+         #generateEditText($ui)
+    #end
+
+     #if($ui.attributeType=="Spinner")
+             #generateSpinner($ui)
+     #end
+
+#end
+
+
+              <Button
+                  android:id="@+id/btnSave"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  style="@style/Button"
+                  android:layout_gravity="center"
+                  android:text="Save"
+               />
+
+              <include
+                  android:id="@+id/llProgressBar"
+                  layout="@layout/simple_progress_loader"
+                  android:visibility="gone" />
+
+
+          </LinearLayout>
+      </ScrollView>
+</layout>
+
+####################### MACRO : generate EditText #######################
+
+#macro(generateEditText $ui)
+ <com.google.android.material.textfield.TextInputLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_marginTop="@dimen/dimen_10_dp"
+                  android:layout_marginStart="@dimen/dimen_5_dp"
+                  android:layout_marginEnd="@dimen/dimen_5_dp"
+                  android:theme="@style/TextInputLayoutAppearance"
+                  >
+
+                  <com.google.android.material.textfield.TextInputEditText
+                      android:id="@+id/${ui.attributeName}"
+                      android:text="@={obj.$ui.attributeName}"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="${ui.hintText}"
+                      android:inputType="text"
+                      android:maxLength="40" />
+  </com.google.android.material.textfield.TextInputLayout>
+#end
+################################################################################
+
+####################### MACRO : generate Spinner #######################
+
+#macro(generateSpinner $ui)
+
+ <TextView
+       android:layout_width="wrap_content"
+        android:id="@+id/${ui.attributeName}TV"
+        android:text="${ui.hintText}"
+        style="@style/Spinner"
+        android:layout_height="wrap_content"/>
+ <Spinner
+       android:id="@+id/${ui.attributeName}"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:entries="@array/spinner_items"
+       style="@style/Spinner" />
+#end
+################################################################################

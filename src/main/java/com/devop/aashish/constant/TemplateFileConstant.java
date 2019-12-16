@@ -17,16 +17,25 @@ public class TemplateFileConstant {
     public static final String KEY_REPO_CLASS_NAME = "RepositoryName";
     public static final String KEY_REPO_IMPL_CLASS_NAME = "RepositoryImplName";
     public static final String KEY_COMPONENT = "component";
+    public static final String KEY_ENTITY_NAME = "EntityName";
+    public static final String KEY_FRAGMENT_NAME = "FragmentName";
+    public static final String KEY_ITEM_BINDING_NAME = "ItemBindingClassName";
     public static final String KEY_VIEW_MODEL_CLASS_NAME = "ViewModelName";
     public static final String KEY_BINDING_CLASS_NAME = "BindingClassName";
     public static final String KEY_LAYOUT_FILE_NAME = "LayoutFileName";
     public static final String KEY_ACTIVITY_LIST = "ActivityList";
+    public static final String KEY_LAUNCHER = "LauncherActivity";
     public static final String KEY_JSON_ENTITY = "jsonEntity";
     public static final String KEY_ENTITIES = "entities";
     public static final String KEY_DAO = "dao";
     public static final String KEY_ITEM_ADAPTER_ITEM = "item";
     public static final String KEY_ITEM_ADAPTER_VO_PATH = "vopath";
     public static final String KEY_ITEM_ADAPTER_VO_NAME = "VOName";
+    public static final String KEY_ADAPTER_CLASS = "AdapterClassName";
+    public static final String KEY_CLASS_NAME_ADD = "ClassNameAdd";
+    public static final String KEY_BINDING_CLASS_NAME_ADD = "BindingClassNameAdd";
+    public static final String KEY_LAYOUT_FILE_NAME_ADD = "LayoutFileNameAdd";
+    public static final String KEY_GENERATE_RV_FRAGMENT = "GenerateRV";
 
 
     public static final String VERSION_GRADLE_LOCATION = "template/core/versions_gradle.vm";
@@ -55,7 +64,7 @@ public class TemplateFileConstant {
     public static final String CALLBACK_CUSTOM_FILE = "CallBackCustom.kt";
     public static final String PREFERENCE_UTIL_FILE = "PreferenceUtils.kt";
     public static final String DATE_TIME_FILE = "DateTimeParser.kt";
-    public static final String APP_VALIDATOR_FILE = "DateTimeParser.kt";
+    public static final String APP_VALIDATOR_FILE = "AppValidator.kt";
 
     public static final String BINDING_ADAPTER_LOCATION = "template/view/binding_adapter.vm";
     public static final String BINDING_ADAPTER_FILE = "BindingAdapters.kt";
@@ -96,17 +105,20 @@ public class TemplateFileConstant {
     public static final String ACTIVITY_LOCATION = "template/component/activity.vm";
     public static final String ACTIVITY_CLASS_LOCATION = "template/component/activity_class.vm";
     public static final String FRAGMENT_CLASS_LOCATION = "template/component/fragment_class.vm";
+    public static final String FRAGMENT_ADD_CLASS_LOCATION = "template/component/fragment_add_class.vm";
+    public static final String FRAGMENT_ADD_LOCATION = "template/component/fragment_add.vm";
     public static final String FRAGMENT_LOCATION = "template/component/fragment.vm";
     public static final String VIEW_MODEL_LOCATION = "template/component/view_model.vm";
     public static final String REPO_LOCATION = "template/component/repo.vm";
     public static final String REPO_IMPL_LOCATION = "template/component/repo_impl.vm";
     public static final String ADAPTER_ITEM_LOCATION = "template/component/adapter_item.vm";
-    public static final String ADAPTER_ITEM_VO = "template/component/adapter_vo.vm";
     public static final String ADAPTER_CLASS_LOCATION = "template/component/adapter_class.vm";
 
     public static final String ENTITY_LOCATION = "template/database/entity.vm";
     public static final String DAO_LOCATION = "template/database/dao.vm";
     public static final String BASE_DAO_LOCATION = "template/database/base_dao.vm";
+    public static final String LOCAL_MEDIATOR_LOCATION = "template/database/local_mediator.vm";
+    public static final String LOCAL_MEDIATOR_FILE_NAME = "LocalMediator.kt";
 
 
 }

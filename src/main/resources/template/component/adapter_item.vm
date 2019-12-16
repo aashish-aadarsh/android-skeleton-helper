@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="${item}"
+            name="item"
             type="${applicationId}.${vopath}" />
     </data>
 
@@ -19,19 +19,47 @@
         app:cardElevation="@dimen/dimen_2_dp"
         app:cardUseCompatPadding="true">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:padding="@dimen/dimen_10_dp">
+      <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:clipChildren="false"
+                 android:orientation="vertical"
+                 android:padding="@dimen/dimen_10_dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_centerInParent="true"
-                tools:text="This is sample text" />
-
-        </RelativeLayout>
+#set($isPrimary = "true")
+#foreach($ui in ${uiComponents})
+    #if($ui.isRowItem && $isPrimary=="true")
+         #generateHeader($ui)
+    #end
+    #if($ui.isRowItem && $isPrimary=="false")
+             #generateSubHeader($ui)
+    #end
+    #set($isPrimary = "false")
+#end
+</LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>
+
+####################### MACRO : generate HeaderItem #######################
+
+#macro(generateHeader $ui)
+ <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{item.$ui.attributeName}"
+        style="@style/TextViewRowItemHeader"
+  />
+#end
+########################################################
+
+
+####################### MACRO : generate SubHeaderItem #######################
+
+#macro(generateSubHeader $ui)
+   <TextView
+      android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@{item.$ui.attributeName}"
+       style="@style/TextViewRowItemSubHeader"
+    />
+#end

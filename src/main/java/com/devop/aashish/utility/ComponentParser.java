@@ -34,7 +34,6 @@ public class ComponentParser {
 
 
     /**
-     *
      * @param componentName for which fragment layout name is to be returned
      * @return the name of fragment xml file
      *
@@ -46,9 +45,20 @@ public class ComponentParser {
                 ApplicationConstant.NamingConstant.EXTENSION_XML;
     }
 
+    /**
+     * @param componentName for which fragment layout name is to be returned
+     * @return the name of fragment xml file
+     *
+     * <code>fragment_add_login.xml</code>
+     */
+    public static String getFragmentLayoutNameAdd(String componentName) {
+        return ApplicationConstant.NamingConstant.FRAGMENT_XML + ApplicationConstant.NamingConstant.UNDERSCORE
+                + ApplicationConstant.NamingConstant.ADD.toLowerCase() + ApplicationConstant.NamingConstant.UNDERSCORE +
+                componentName.toLowerCase() +
+                ApplicationConstant.NamingConstant.EXTENSION_XML;
+    }
 
     /**
-     *
      * @param componentName for which Activity class name is to be returned
      * @return the name of activity class file
      *
@@ -62,7 +72,6 @@ public class ComponentParser {
     }
 
     /**
-     *
      * @param componentName for which Fragment class name is to be returned
      * @return the name of fragment class file
      *
@@ -76,7 +85,19 @@ public class ComponentParser {
     }
 
     /**
+     * @param componentName for which Fragment class name is to be returned
+     * @return the name of fragment class file
      *
+     * <code>AddLoginFragment.kt</code>
+     */
+    public static String getFragmentNameAdd(String componentName) {
+        return ApplicationConstant.NamingConstant.ADD + String.valueOf(componentName.charAt(0)).toUpperCase() +
+                componentName.substring(1) +
+                ApplicationConstant.NamingConstant.FRAGMENT_CLASS +
+                ApplicationConstant.NamingConstant.EXTENSION_KOTLIN;
+    }
+
+    /**
      * @param componentName for which Repository Interface name is to be returned
      * @return the name of RepositoryInterface class file
      *
@@ -90,7 +111,6 @@ public class ComponentParser {
     }
 
     /**
-     *
      * @param componentName for which Repository Impl class name is to be returned
      * @return the name of RepositoryImpl class file
      *
@@ -104,7 +124,6 @@ public class ComponentParser {
     }
 
     /**
-     *
      * @param componentName for which ViewModel class name is to be returned
      * @return the name of ViewModel class file
      *
@@ -119,7 +138,6 @@ public class ComponentParser {
 
 
     /**
-     *
      * @param componentName for which ActivityBinding class name is to be returned
      * @return the name of ActivityBinding class file
      *
@@ -132,7 +150,6 @@ public class ComponentParser {
     }
 
     /**
-     *
      * @param componentName for which FragmentBinding class name is to be returned
      * @return the name of FragmentBinding class file
      *
@@ -146,7 +163,20 @@ public class ComponentParser {
     }
 
     /**
+     * @param componentName for which FragmentBinding class name is to be returned
+     * @return the name of FragmentBinding class file
      *
+     * <code>FragmentLoginBinding</code>
+     */
+
+    public static String getBindingClassNameForFragmentAdd(String componentName) {
+        return ApplicationConstant.NamingConstant.FRAGMENT_CLASS +
+                ApplicationConstant.NamingConstant.ADD +
+                String.valueOf(componentName.charAt(0)).toUpperCase() +
+                componentName.substring(1) + ApplicationConstant.NamingConstant.BINDING;
+    }
+
+    /**
      * @param componentName for which Entity class name is to be returned
      * @return the name of Entity class file
      *
@@ -159,7 +189,6 @@ public class ComponentParser {
     }
 
     /**
-     *
      * @param componentName for which Dao class name is to be returned
      * @return the name of Dao class file
      *
@@ -172,7 +201,6 @@ public class ComponentParser {
     }
 
     /**
-     *
      * @param componentName for which item xml name is to be returned
      * @return the name of item xml file
      *
@@ -185,7 +213,6 @@ public class ComponentParser {
     }
 
     /**
-     *
      * @param componentName for which item vo name is to be returned
      * @return the name of item vo file
      *
@@ -198,7 +225,6 @@ public class ComponentParser {
     }
 
     /**
-     *
      * @param componentName for which  adapter class is to be returned
      * @return the name of item adapter file
      *
@@ -212,7 +238,6 @@ public class ComponentParser {
     }
 
     /**
-     *
      * @param componentName for which item binding class is to be returned
      * @return the name of item adapter binding
      *
@@ -225,7 +250,6 @@ public class ComponentParser {
     }
 
     /**
-     *
      * @param fileName for which class name is to be parsed
      * @return class name
      *

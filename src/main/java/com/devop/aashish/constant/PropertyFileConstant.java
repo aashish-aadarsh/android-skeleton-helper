@@ -24,6 +24,7 @@ public class PropertyFileConstant {
     public static final String APPLICATION_ID = "APPLICATION_ID";
     public static final String APP_DB_NAME = "DATABASE_NAME";
     public static final String APP_COMPONENT = "APP_COMPONENT";
+    public static final String LAUNCHER = "LAUNCHER";
     public static final String ADAPTER_FOR_COMPONENT = "ADAPTER_FOR_COMPONENT";
     public static final String APP_COMPONENT_SEPARATOR = ",";
     public static final String APP_COMPONENT_ACTIVITY = "<";

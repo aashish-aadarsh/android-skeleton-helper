@@ -62,7 +62,7 @@ public class App {
 
         UtilityGenerator.generateUtilityClass();
 
-        ViewGenerator.generateView();
+        ViewGenerator.generateCommonView();
 
         NetworkGenerator.generateNetwork();
 

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DemoApplication</string>
+
+    <string name="label_no_data">No Data Available</string>
+    <string name="msg_data_saved_successfully">Data is saved successfully</string>
+    <string name="please_wait">Please wait …</string>
+    <string name="err_msg_data_saved_failed">Unable to process your request</string>
 </resources>

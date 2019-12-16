@@ -24,6 +24,7 @@ public class GeneratorConfig {
     static String applicationId;
     static String generatorFilePath;
     static String appDBName;
+    static String launcher;
     static Map<String, ComponentType> appComponents = new HashMap<>();
     static Set<String> adapterComponents = new HashSet<>();
 
@@ -36,11 +37,13 @@ public class GeneratorConfig {
      * Initialize the property reading
      */
     public void initInfo() {
-        PropertyFileUtil propertyFileUtil = new PropertyFileUtil(generatorFilePath, PropertyFileConstant.GENERATOR_PROPERTIES);
+        PropertyFileUtil propertyFileUtil = new PropertyFileUtil(generatorFilePath,
+                PropertyFileConstant.GENERATOR_PROPERTIES);
         appName = propertyFileUtil.getProperty(PropertyFileConstant.APPLICATION_NAME);
         appOutputDirectory = propertyFileUtil.getProperty(PropertyFileConstant.APPLICATION_OUTPUT_DIRECTORY);
         applicationId = propertyFileUtil.getProperty(PropertyFileConstant.APPLICATION_ID);
         appDBName = propertyFileUtil.getProperty(PropertyFileConstant.APP_DB_NAME);
+        launcher = propertyFileUtil.getProperty(PropertyFileConstant.LAUNCHER);
         parseAppComponents(propertyFileUtil);
     }
 
@@ -66,7 +69,6 @@ public class GeneratorConfig {
         if (appComponentAdapterInput != null) {
             String[] adapterComponent = appComponentAdapterInput.split(PropertyFileConstant.APP_COMPONENT_SEPARATOR);
             adapterComponents.addAll(Arrays.asList(adapterComponent));
-
         }
 
     }

@@ -1,0 +1,83 @@
+package ${applicationId}.view.${component}
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import android.widget.Toast
+import ${applicationId}.R
+import ${applicationId}.vo.Status
+import ${applicationId}.databinding.${BindingClassNameAdd}
+import ${applicationId}.datasource.database.entity.${EntityName}
+
+class ${ClassNameAdd} : Fragment() {
+
+    companion object {
+
+        fun newInstance(obj: ${EntityName}?):  ${ClassNameAdd} {
+                val fragment =  ${ClassNameAdd}()
+                val bundle = Bundle()
+                if (null != obj)
+                    bundle.putSerializable("key_${EntityName}", obj)
+                fragment.arguments = bundle
+                return fragment
+        }
+
+       fun newInstance() = ${ClassNameAdd}()
+
+  }
+
+    private lateinit var viewModel: ${ViewModelName}
+    private lateinit var mBinding: ${BindingClassNameAdd}
+    private var m${EntityName}: ${EntityName} = $EntityName()
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        mBinding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.${LayoutFileNameAdd},
+                container,
+                false
+        )
+        if (arguments != null && arguments!!.containsKey("key_${EntityName}")) {
+              m${EntityName} = arguments!!.get("key_${EntityName}") as ${EntityName}
+        }
+
+        mBinding.headerName = "Add/Update ${EntityName}"
+        return mBinding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(${ViewModelName}::class.java)
+        initVariables()
+    }
+
+    private fun initVariables() {
+        mBinding.obj = m${EntityName}
+        mBinding.btnSave.setOnClickListener {
+            validateAndSaveData()
+        }
+    }
+
+    private fun validateAndSaveData() {
+        m${EntityName} = mBinding.obj!!
+        viewModel.create${EntityName}(m${EntityName}).observe(viewLifecycleOwner, Observer {
+                   if (it.status == Status.LOADING) {
+                           mBinding.llProgressBar.visibility = View.VISIBLE
+                   } else if (it.status == Status.SUCCESS || it.status == Status.ERROR) {
+                        mBinding.llProgressBar.visibility = View.GONE
+                   if (it.status == Status.SUCCESS) {
+                          fragmentManager?.popBackStackImmediate()
+                          Toast.makeText(context!!, getString(R.string.msg_data_saved_successfully), Toast.LENGTH_SHORT).show()
+                   }else {
+                       Toast.makeText(context!!, getString(R.string.err_msg_data_saved_failed), Toast.LENGTH_SHORT).show()
+                   }
+               }
+         })
+    }
+}

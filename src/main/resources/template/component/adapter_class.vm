@@ -9,7 +9,7 @@ import ${applicationId}.core.AppExecutors
 import ${applicationId}.utility.CallBackCustom
 import ${applicationId}.view.common.DataBoundListAdapter
 import ${applicationId}.databinding.${BindingClassName}
-
+import ${applicationId}.datasource.database.entity.${EntityName}
 
 class ${ClassName}(
         mAppExecutors: AppExecutors,
@@ -18,12 +18,10 @@ class ${ClassName}(
         mAppExecutors = mAppExecutors,
         mDiffCallback = object : DiffUtil.ItemCallback<${VOName}>() {
             override fun areItemsTheSame(oldItem: ${VOName}, newItem: ${VOName}): Boolean {
-                TODO("not implemented")
                 return false
             }
 
             override fun areContentsTheSame(oldItem: ${VOName}, newItem: ${VOName}): Boolean {
-                TODO("not implemented")
                 return false
             }
         }
@@ -40,8 +38,10 @@ class ${ClassName}(
     }
 
     override fun bind(binding: ${BindingClassName}, item: ${VOName}) {
-        binding.${item} = item
-
+        binding.item = item
+         binding.root.setOnClickListener {
+             mCallback.handleCallback(item,binding)
+         }
     }
 
 }

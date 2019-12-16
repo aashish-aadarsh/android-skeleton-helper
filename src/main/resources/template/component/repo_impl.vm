@@ -2,11 +2,15 @@ package ${applicationId}.datasource.repository.impl
 
 import android.app.Application
 import ${applicationId}.core.AppExecutors
-import ${applicationId}.vo.Status
 import ${applicationId}.datasource.repository.${RepositoryName}
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ${applicationId}.core.Injection
 import ${applicationId}.vo.Resource
+#if($GenerateRV)
+import ${applicationId}.datasource.database.entity.${EntityName}
+#end
+import ${applicationId}.datasource.database.LocalMediator
 
 class ${ClassName}
 private constructor(
@@ -16,7 +20,10 @@ private constructor(
 
     private val mApplication: Application = application
     private val mAppExecutors: AppExecutors = appExecutors
-    private var mPerformOperation: MutableLiveData<Resource<Any>> = MutableLiveData()
+    #if($GenerateRV)
+    private var m${EntityName}Dao =  Injection.provideDatabase().get${EntityName}Dao()
+    #end
+    private var mAPIInterface = Injection.provideRetrofitInterface(mApplication)
 
     companion object {
         private var INSTANCE: ${ClassName}? = null
@@ -28,16 +35,41 @@ private constructor(
         }
 
     }
+#if($GenerateRV)
+     override fun create${EntityName}(obj: ${EntityName}): LiveData<Resource<${EntityName}>> {
+         val status = MutableLiveData<Resource<${EntityName}>>(Resource.loading())
+          mAppExecutors.diskIO().execute {
+             m${EntityName}Dao.insert(obj)
+             status.postValue(Resource.success(obj))
+          }
+        return status
+     }
 
-    override fun doSomething(any: Any?): LiveData<Resource<Any>> {
-        mPerformOperation.value = Resource(Status.LOADING, null, null)
+     override fun update${EntityName}(obj: ${EntityName}): LiveData<Resource<${EntityName}>> {
+        val status = MutableLiveData<Resource<${EntityName}>>(Resource.loading())
+         mAppExecutors.diskIO().execute {
+            m${EntityName}Dao.insert(obj)
+            status.postValue(Resource.success(obj))
+         }
+        return status
+     }
 
-        mAppExecutors.networkIO().execute {
-                Thread.sleep(1000)
-                mPerformOperation.postValue(Resource(Status.SUCCESS, true, null))
+     override fun delete${EntityName}(obj: ${EntityName}): LiveData<Resource<Boolean>> {
+        val status = MutableLiveData<Resource<Boolean>>(Resource.loading())
+        mAppExecutors.diskIO().execute {
+            m${EntityName}Dao.delete(obj)
+            status.postValue(Resource.success(true))
         }
+        return status
+     }
 
-        return mPerformOperation
+    override fun getAll${EntityName}(): LiveData<Resource<List<${EntityName}>>> {
+        return object : LocalMediator<List<${EntityName}>>() {
+           override fun loadFromDb(): LiveData<List<${EntityName}>> {
+                return m${EntityName}Dao.fetchAll()
+           }
+        }.asLiveData()
     }
 
+#end
 }

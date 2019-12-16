@@ -39,6 +39,8 @@ public class DatabaseGenerator {
     public static Set<String> entityListName = new HashSet<>();
     public static Set<JsonEntity> daoList = new HashSet<>();
     public static Set<String> daoListName = new HashSet<>();
+    public static Set<JsonEntity> daoListChild = new HashSet<>();
+    public static Set<String> daoListNameChild = new HashSet<>();
     private static Logger logger = LoggerFactory.getLogger(DatabaseGenerator.class);
     private static VelocityConfig config;
 
@@ -53,6 +55,9 @@ public class DatabaseGenerator {
             File[] files = entityDirectory.listFiles();
             if (files != null) {
                 for (File file : files) {
+                    if (!file.getName().endsWith(".json")) {
+                        continue;
+                    }
                     JSONParser jsonParser = new JSONParser();
                     Object obj;
                     try {
@@ -147,6 +152,11 @@ public class DatabaseGenerator {
                         File.separator + TemplateFileConstant.APP_DATABASE_FILE
                 , TemplateFileConstant.APP_DATABASE_LOCATION, velocityContext);
 
+        config.writeFile(
+                packageDirectory +
+                        File.separator + TemplateFileConstant.LOCAL_MEDIATOR_FILE_NAME
+                , TemplateFileConstant.LOCAL_MEDIATOR_LOCATION, velocityContext);
+
         String packageDirectoryConverter = PathUtil.getFilePathFromPackage(ApplicationConstant.
                         PackageConstant.DATA_SOURCE_DB_CONVERTER,
                 ConfigValueHelper.getMainJavaDirectory());
@@ -155,6 +165,7 @@ public class DatabaseGenerator {
                 packageDirectoryConverter +
                         File.separator + TemplateFileConstant.DATE_CONVERTER_FILE
                 , TemplateFileConstant.DATE_CONVERTER_LOCATION, velocityContext);
+
 
     }
 }

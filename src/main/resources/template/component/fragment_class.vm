@@ -8,18 +8,29 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DividerItemDecoration
+
+import ${applicationId}.core.Injection
 import ${applicationId}.R
 import ${applicationId}.vo.Status
 import ${applicationId}.databinding.${BindingClassName}
+import ${applicationId}.utility.CallBackCustom
+#if($GenerateRV)import ${applicationId}.datasource.database.entity.${EntityName}
+import  ${applicationId}.databinding.${ItemBindingClassName}
+#end
+import ${applicationId}.utility.ActivityUtils
 
-class ${ClassName} : Fragment() {
-
+class ${ClassName} : Fragment()   #if($GenerateRV),CallBackCustom<${EntityName}, ${ItemBindingClassName}> #end {
     companion object {
         fun newInstance() = ${ClassName}()
     }
 
     private lateinit var viewModel: ${ViewModelName}
     private lateinit var mBinding: ${BindingClassName}
+    #if($GenerateRV)
+    private var mAdapter= ${AdapterClassName}(Injection.provideAppExecutors(),this)
+    #end
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -29,23 +40,88 @@ class ${ClassName} : Fragment() {
                 container,
                 false
         )
+        mBinding.headerName = "${EntityName}"
         return mBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(${ViewModelName}::class.java)
-        viewModel.initLiveData()
-        observeData()
+
+        #if($GenerateRV)
+        initRecyclerView()
+        getData()
+        mBinding.fab.setOnClickListener {
+            ActivityUtils.addFragmentToActivity(activity?.supportFragmentManager!!,
+                     ${ClassNameAdd}.newInstance(null),
+                     R.id.fragment_container, true
+                     ,${ClassNameAdd}::class.java.name)
+        }
+        #end
+    }
+#if($GenerateRV)
+    private fun initRecyclerView() {
+        mBinding.rv.addItemDecoration(DividerItemDecoration(context,
+                DividerItemDecoration.VERTICAL))
+        mBinding.rv.adapter = mAdapter
+        val layoutManager = LinearLayoutManager(context)
+        mBinding.rv.layoutManager = layoutManager
     }
 
-    private fun observeData() {
-
-        viewModel.doOperation().observe(this, Observer { value ->
-            if (null != value && value.status == Status.SUCCESS) {
-
+    private fun getData() {
+        viewModel.getAll${EntityName}().observe(viewLifecycleOwner, Observer { value ->
+            if (value.status == Status.LOADING) {
+                showLoader()
+            } else if (value.status == Status.SUCCESS || value.status == Status.ERROR) {
+                hide()
+                if (value.status == Status.SUCCESS) {
+                    showData(value.data)
+                } else if (value.status == Status.ERROR) {
+                    showErrorDialog()
+                }
             }
         })
-
     }
+
+
+    private fun showData(data: List<${EntityName}>?) {
+        if (data != null && data.isNotEmpty()) {
+            mBinding.includeEmpty.root.visibility = View.GONE
+            mAdapter.submitList(data)
+        } else {
+            showNoData()
+            mAdapter.submitList(null)
+        }
+    }
+
+    private fun showNoData() {
+        mBinding.includeEmpty.root.visibility = View.VISIBLE
+        hide()
+    }
+
+    private fun showLoader() {
+        mBinding.progress.visibility = View.VISIBLE
+        mBinding.error.visibility = View.GONE
+    }
+
+    private fun showErrorDialog() {
+        mBinding.error.visibility = View.VISIBLE
+        mBinding.progress.visibility = View.GONE
+    }
+
+    private fun hide() {
+        mBinding.progress.visibility = View.GONE
+        mBinding.error.visibility = View.GONE
+    }
+
+    override fun handleCallback(t: ${EntityName}, s: ${ItemBindingClassName}) {
+        ActivityUtils.addFragmentToActivity(activity?.supportFragmentManager!!,
+                             ${ClassNameAdd}.newInstance(t),
+                             R.id.fragment_container, true
+                             ,${ClassNameAdd}::class.java.name)
+    }
+
+    override fun handleCallbackWithType(t: ${EntityName}, s: ${ItemBindingClassName}, type: String) {
+    }
+#end
 }

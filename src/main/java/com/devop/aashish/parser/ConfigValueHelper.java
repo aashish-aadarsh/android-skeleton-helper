@@ -65,5 +65,7 @@ public class ConfigValueHelper {
         return DirectoryConfig.androidTestJavaDirectory;
     }
 
-
+    public static String getLauncher() {
+        return GeneratorConfig.launcher;
+    }
 }

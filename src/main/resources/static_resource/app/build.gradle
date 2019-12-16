@@ -37,6 +37,7 @@ android {
         exclude 'META-INF/license.txt'
         exclude 'META-INF/dependencies.txt'
         exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/proguard/coroutines.pro'
     }
 
 
@@ -49,31 +50,52 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:' + root_kotlin_version
     implementation 'org.jetbrains.kotlin:kotlin-reflect:' + root_kotlin_version
 
-    implementation 'androidx.appcompat:appcompat:' + app_appcompatx
-    implementation 'androidx.cardview:cardview:' + app_cardviewx
-    implementation 'com.google.android.material:material:' + app_materialx
+    implementation 'androidx.appcompat:appcompat:' + appcompatx
+    implementation 'androidx.constraintlayout:constraintlayout:' + constraint_layout
+    implementation 'androidx.multidex:multidex:' + multidex
+
+    implementation 'androidx.recyclerview:recyclerview:' + recycler_view
+    implementation 'androidx.cardview:cardview:' + cardviewx
+    implementation 'com.google.android.material:material:' + materialx
     implementation 'androidx.legacy:legacy-support-v4:' + androidx_legacy_support_v4
 
+    //ktx
+    implementation 'androidx.core:core-ktx:' + ktx_core
 
-    implementation 'androidx.multidex:multidex:' + app_multidex
+    //lifecycle
+    implementation 'androidx.lifecycle:lifecycle-extensions:' + lifecycle
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:' + lifecycle
+    kapt 'androidx.lifecycle:lifecycle-compiler:' + lifecycle
 
-    //for Android Architecture
-    implementation 'androidx.lifecycle:lifecycle-extensions:' + app_xlifecycleArcht
-    implementation 'androidx.lifecycle:lifecycle-common-java8:' + app_xlifecycleArcht
-    implementation 'androidx.room:room-runtime:' + app_xlifecycleArcht
+    //room
+    implementation 'androidx.room:room-runtime:' + room
+    implementation 'androidx.room:room-ktx:' + room
+    kapt 'androidx.room:room-compiler:' + room
 
-    kapt 'androidx.lifecycle:lifecycle-compiler:' + app_xlifecycleArcht
-    kapt 'androidx.room:room-compiler:' + app_xlifecycleArcht
-    kapt 'com.android.databinding:compiler:' + app_dataBindingCompiler
+    /*//work manager
+    implementation 'androidx.work:work-runtime-ktx:' + work_manager
 
-    // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:' + retrofit_version
-    implementation 'com.squareup.retrofit2:converter-gson:' + gson_convertor_version
-    implementation 'com.squareup.okhttp3:logging-interceptor:' + retrofitinterceptor
+    //paging
+    implementation 'androidx.paging:paging-runtime-ktx:' + paging*/
 
+
+    //Third-party-Libs
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:' + retrofit
+    implementation 'com.squareup.retrofit2:converter-gson:' + gson_convertor
+    implementation 'com.squareup.okhttp3:logging-interceptor:' + retrofit_interceptor
+
+    implementation 'com.github.bumptech.glide:glide:' + glide
+    implementation 'com.airbnb.android:lottie:' + lottie
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:' + textDrawable
+    implementation 'de.hdodenhof:circleimageview:' + circularImageView
+    implementation 'com.facebook.stetho:stetho:' + stetho
+    implementation 'com.zhihu.android:matisse:' + matisse
 
     testImplementation 'junit:junit:' + junit
     androidTestImplementation 'androidx.test:runner:' + runner

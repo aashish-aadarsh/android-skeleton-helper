@@ -48,10 +48,12 @@ public class AndroidManifestGenerator {
                 String prefix = componentName.toLowerCase() + ".";
                 String activityName = prefix + className;
                 activityList.add(activityName);
+                if (componentName.toLowerCase().equals(ConfigValueHelper.getLauncher().toLowerCase())) {
+                    param.put(TemplateFileConstant.KEY_LAUNCHER, activityName);
+                }
             }
 
         });
-
         param.put(TemplateFileConstant.KEY_ACTIVITY_LIST, activityList);
         return param;
     }

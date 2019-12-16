@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="spinner_items">
+        <item>-Select-</item>
+        <item>Option Item 1</item>
+        <item>Option Item 2</item>
+        <item>Option Item 3</item>
+        <item>Option Item 4</item>
+    </string-array>
+
+</resources>

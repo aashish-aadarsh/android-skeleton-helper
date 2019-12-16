@@ -35,6 +35,10 @@ public class PathUtil {
         return packageName.replace(".", File.separator);
     }
 
+    public static String getPackageNameFromPath(String packageName) {
+        return packageName.replace("/", ".");
+    }
+
     public static List<String> androidPackages(String mainJavaDirectory) {
         List<String> list = new ArrayList<>();
         list.add(ApplicationConstant.PackageConstant.CORE);

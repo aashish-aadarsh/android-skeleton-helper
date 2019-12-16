@@ -41,6 +41,7 @@ public class ApplicationConstant {
         public static final String BINDING = "Binding";
         public static final String VO = "VO";
         public static final String ITEM_CLASS = "Item";
+        public static final String ADD = "Add";
     }
 
     public static class PackageConstant {
