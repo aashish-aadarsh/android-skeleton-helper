@@ -19,7 +19,6 @@ The generated manifest file does not specify default launcher activity.
                          network(and retrofit helper)
                          and repository ( and its impl)         
 
-
 ## How to Use :
 1. Download the [AndroidSkeletonHelper.zip](https://github.com/aashish-aadarsh/AndroidSkeletonHelper/raw/master/AndroidSkeletonHelper.zip) and extract to some directory.
 2. Go to extracted directory, you will find `AndroidSkeletonHelper.jar` and `properties` 
@@ -38,7 +37,10 @@ directory.
  
       Enjoy coding. :)
         
-        
+## Use to generate basic UI for a simple form based app with CRUD operation.
+1. Map the attributes of json to excel and their corresponding field.
+2. Add that component entry in adapter section of `generator.properties`
+       
 ## Issues
 Feel free to report any issues, change request [Here](https://github.com/aashish-aadarsh/AndroidSkeletonHelper/issues)
 
