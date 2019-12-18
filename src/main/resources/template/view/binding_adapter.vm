@@ -2,6 +2,13 @@ package ${applicationId}.view.common
 
 import android.view.View
 import androidx.databinding.BindingAdapter
+import android.text.TextUtils
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 
 object BindingAdapters {
 
@@ -10,4 +17,49 @@ object BindingAdapters {
     fun showHide(view: View, show: Boolean) {
         view.visibility = if (show) View.VISIBLE else View.GONE
     }
+
+    @JvmStatic
+        @BindingAdapter(value = ["setTextViewDefault", "setTextView"], requireAll = false)
+        fun setTextView(view: TextView, defaultText: String?, actualValue: String?) {
+            if (TextUtils.isEmpty(actualValue))
+                view.text = defaultText
+            else
+                view.text = actualValue
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["items","selectedItem", "selectedItemAttrChanged"], requireAll = false)
+        fun setSpinnerItem(spinner: Spinner, items: Any?,
+                           selectedItem: String?, listener: InverseBindingListener) {
+
+            if (null!=items && items is Array<*> && items.isArrayOf<String>()) {
+                spinner.adapter = ArrayAdapter(spinner.context,
+                        android.R.layout.simple_spinner_dropdown_item, items)
+            }
+
+            if (!TextUtils.isEmpty(selectedItem)) {
+                for (index in 0 until spinner.adapter.count) {
+                    if (spinner.getItemAtPosition(index) == selectedItem) {
+                        spinner.setSelection(index)
+                        break
+                    }
+                }
+
+            }
+
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?,
+                                            position: Int, id: Long) = listener.onChange()
+
+                override fun onNothingSelected(adapterView: AdapterView<*>) = listener.onChange()
+            }
+        }
+
+        @JvmStatic
+        @InverseBindingAdapter(attribute = "selectedItem")
+        fun getSelectedItem(spinner: Spinner): String {
+            return spinner.selectedItem as String
+        }
+
+
 }

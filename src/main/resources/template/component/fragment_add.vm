@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -39,10 +40,16 @@
              #generateSpinner($ui)
      #end
 
+     #if($ui.attributeType=="TextView")
+          #generateTextView($ui)
+     #end
+
+      #if($ui.attributeType=="Checkbox")
+               #generateCheckbox($ui)
+       #end
+
 #end
-
-
-              <Button
+ <Button
                   android:id="@+id/btnSave"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
@@ -67,10 +74,9 @@
  <com.google.android.material.textfield.TextInputLayout
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
-                  android:layout_marginTop="@dimen/dimen_10_dp"
-                  android:layout_marginStart="@dimen/dimen_5_dp"
-                  android:layout_marginEnd="@dimen/dimen_5_dp"
+                  android:background="@drawable/border"
                   android:theme="@style/TextInputLayoutAppearance"
+                  android:layout_marginTop="@dimen/dimen_10_dp"
                   >
 
                   <com.google.android.material.textfield.TextInputEditText
@@ -80,6 +86,7 @@
                       android:layout_height="wrap_content"
                       android:hint="${ui.hintText}"
                       android:inputType="text"
+                      android:layout_margin="@dimen/dimen_5_dp"
                       android:maxLength="40" />
   </com.google.android.material.textfield.TextInputLayout>
 #end
@@ -88,7 +95,12 @@
 ####################### MACRO : generate Spinner #######################
 
 #macro(generateSpinner $ui)
-
+      <RelativeLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/border"
+                 android:layout_marginTop="@dimen/dimen_10_dp"
+                 android:padding="@dimen/dimen_5_dp">
  <TextView
        android:layout_width="wrap_content"
         android:id="@+id/${ui.attributeName}TV"
@@ -99,7 +111,38 @@
        android:id="@+id/${ui.attributeName}"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
+       android:layout_toEndOf="@+id/${ui.attributeName}TV"
+       app:selectedItem="@={obj.$ui.attributeName}"
        android:entries="@array/spinner_items"
        style="@style/Spinner" />
+
+   </RelativeLayout>
 #end
-################################################################################
+###########################################################
+
+####################### MACRO : generate TextView #######################
+
+#macro(generateTextView $ui)
+ <TextView
+       android:id="@+id/${ui.attributeName}TV"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       style="@style/TextView"
+       app:setTextViewDefault = "@{`$ui.hintText`}"
+       tools:text="${ui.hintText}"
+       app:setTextView = "@{obj.$ui.attributeName}"
+       android:layout_marginTop="@dimen/dimen_10_dp"
+ />
+#end
+
+#macro(generateCheckbox $ui)
+       <CheckBox
+            android:id="@+id/${ui.attributeName}CB"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           style="@style/CheckBox"
+            android:layout_marginTop="@dimen/dimen_10_dp"
+           android:checked="@={obj.$ui.attributeName}"
+           android:text="${ui.hintText}" />
+#end
+

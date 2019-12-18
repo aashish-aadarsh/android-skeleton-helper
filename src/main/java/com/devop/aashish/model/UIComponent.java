@@ -25,6 +25,10 @@ public class UIComponent {
         this.hintText = hintText;
     }
 
+    public UIComponent() {
+
+    }
+
     public String getAttributeName() {
         return attributeName;
     }

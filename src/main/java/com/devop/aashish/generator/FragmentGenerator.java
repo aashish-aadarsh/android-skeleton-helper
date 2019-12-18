@@ -2,16 +2,18 @@ package com.devop.aashish.generator;
 
 import com.devop.aashish.constant.ApplicationConstant;
 import com.devop.aashish.constant.TemplateFileConstant;
+import com.devop.aashish.model.UIComponent;
 import com.devop.aashish.parser.ConfigValueHelper;
 import com.devop.aashish.parser.VelocityConfig;
 import com.devop.aashish.utility.ComponentParser;
+import com.devop.aashish.utility.ExcelDataHelper;
 import com.devop.aashish.utility.FileHelper;
 import com.devop.aashish.utility.PathUtil;
-import com.devop.aashish.utility.RandomDataGenerator;
 import org.apache.velocity.VelocityContext;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 class FragmentGenerator {
@@ -44,13 +46,17 @@ class FragmentGenerator {
                 , TemplateFileConstant.FRAGMENT_LOCATION, velocityContext);
 
         if (generateRV) {
-            //todo... read from excel and parse
-            paramMap.put("uiComponents", RandomDataGenerator.getRandomData());
-            velocityContext = config.getVelocityContextObject(paramMap);
-            config.writeFile(
-                    packageDirectory +
-                            File.separator + fragmentNameAdd
-                    , TemplateFileConstant.FRAGMENT_ADD_LOCATION, velocityContext);
+            try {
+                List<UIComponent> uiComponents = ExcelDataHelper.readExcelData(componentName);
+                paramMap.put("uiComponents", uiComponents);
+                velocityContext = config.getVelocityContextObject(paramMap);
+                config.writeFile(
+                        packageDirectory +
+                                File.separator + fragmentNameAdd
+                        , TemplateFileConstant.FRAGMENT_ADD_LOCATION, velocityContext);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
