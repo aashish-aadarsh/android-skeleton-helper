@@ -1,0 +1,12 @@
+{
+  "firstName": "string",
+  "id": 0,
+  "lastName": "string",
+  "login": "string",
+  "mobile": "string",
+  "email": "string",
+  "gender":"string",
+  "notes":"",
+  "termCondition": true
+
+}
