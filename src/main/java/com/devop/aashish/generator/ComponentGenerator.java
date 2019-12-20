@@ -11,6 +11,7 @@ import com.devop.aashish.utility.PathUtil;
 import org.apache.velocity.VelocityContext;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +51,11 @@ public class ComponentGenerator {
             generateViewModel(componentName, generateRV);
 
             if (generateRV) {
-                AdapterGenerator.generateAdapter(componentName, config);
+                try {
+                    AdapterGenerator.generateAdapter(componentName, config);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

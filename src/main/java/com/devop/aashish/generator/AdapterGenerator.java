@@ -2,26 +2,29 @@ package com.devop.aashish.generator;
 
 import com.devop.aashish.constant.ApplicationConstant;
 import com.devop.aashish.constant.TemplateFileConstant;
+import com.devop.aashish.model.UIComponent;
 import com.devop.aashish.parser.ConfigValueHelper;
 import com.devop.aashish.parser.VelocityConfig;
 import com.devop.aashish.utility.ComponentParser;
+import com.devop.aashish.utility.ExcelDataHelper;
 import com.devop.aashish.utility.FileHelper;
 import com.devop.aashish.utility.PathUtil;
-import com.devop.aashish.utility.RandomDataGenerator;
 import org.apache.velocity.VelocityContext;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AdapterGenerator {
 
-    public static void generateAdapter(String componentName, VelocityConfig config) {
+    public static void generateAdapter(String componentName, VelocityConfig config) throws IOException {
         generateAdapterItemXML(componentName, config);
         generateAdapterClass(componentName, config);
     }
 
-    private static void generateAdapterItemXML(String componentName, VelocityConfig config) {
+    private static void generateAdapterItemXML(String componentName, VelocityConfig config) throws IOException {
         Map<String, Object> paramMap = new HashMap<>();
         String entityPackageDirectory = PathUtil.getPackageNameFromPath(ApplicationConstant.
                 PackageConstant.DATA_SOURCE_DB_ENTITY);
@@ -29,8 +32,8 @@ public class AdapterGenerator {
         paramMap.put(TemplateFileConstant.KEY_ITEM_ADAPTER_ITEM, componentName.toLowerCase());
         paramMap.put(TemplateFileConstant.KEY_ITEM_ADAPTER_VO_PATH,
                 entityPackageDirectory + "." + componentName);
-        //todo from excel
-        paramMap.put("uiComponents", RandomDataGenerator.getRandomData());
+        List<UIComponent> uiComponents = ExcelDataHelper.readExcelData(componentName);
+        paramMap.put("uiComponents", uiComponents);
         String packageDirectory = PathUtil.getFilePathFromPackage(ApplicationConstant.PackageConstant.DIRECTORY_LAYOUT,
                 ConfigValueHelper.getMainDirectory());
         FileHelper.createDirectory(packageDirectory);
